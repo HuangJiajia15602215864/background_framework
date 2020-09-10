@@ -4,7 +4,7 @@
 
     <!-- 叶子节点 -->
     <template v-if="hasOneShowingChild(item.children,item) && (!onlyOneChild.children||onlyOneChild.noShowingChildren)&&!item.alwaysShow">
-      <app-link v-if="onlyOneChild.meta" :to="resolvePath(onlyOneChild.path)"  style="border-right:1px solid red">
+      <app-link v-if="onlyOneChild.meta" :to="resolvePath(onlyOneChild.path)">
         <el-menu-item :index="resolvePath(onlyOneChild.path)" :class="{'submenu-title-noDropdown':!isNest}">
           <item :icon="onlyOneChild.meta.icon||(item.meta&&item.meta.icon)" :title="onlyOneChild.meta.title" />
         </el-menu-item>
@@ -12,7 +12,7 @@
     </template>
 
     <!-- 非叶子节点 -->
-    <el-submenu v-else ref="subMenu" :index="resolvePath(item.path)" popper-append-to-body style="border-bottom:1px solid green">
+    <el-submenu v-else ref="subMenu" :index="resolvePath(item.path)" popper-append-to-body>
       <!-- 显示非叶子节点 -->
       <template slot="title">
         <item v-if="item.meta" :icon="item.meta && item.meta.icon" :title="item.meta.title" />
@@ -30,7 +30,6 @@
 
   </div>
 </template>
-
 <script>
 import path from 'path'
 import { isExternal } from '@/utils/validate'

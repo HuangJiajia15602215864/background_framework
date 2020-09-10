@@ -76,18 +76,18 @@
       }
     }
 
-    .is-active>.el-submenu__title {
-      color: $subMenuActiveText !important;
-    }
-
     & .nest-menu .el-submenu>.el-submenu__title,
     & .el-submenu .el-menu-item {
       min-width: $sideBarWidth !important;
-      background-color: $subMenuBg !important;
+      background-color: $subMenuBg!important;
 
       &:hover {
         background-color: $subMenuHover !important;
       }
+    }
+
+    .router-link-exact-active .is-active{
+      border-left: 3px solid $menuActiveText;
     }
   }
 
