@@ -11,7 +11,6 @@ const getDefaultState = () => {
 }
 
 const state = getDefaultState()
-
 const mutations = {
   RESET_STATE: (state) => {
     Object.assign(state, getDefaultState())
@@ -28,7 +27,7 @@ const mutations = {
 }
 
 const actions = {
-  // user login
+  // 登录
   login({ commit }, userInfo) {
     const { username, password } = userInfo
     return new Promise((resolve, reject) => {
@@ -42,8 +41,19 @@ const actions = {
       })
     })
   },
-
-  // get user info
+  // 注册
+  register({ commit }, userInfo) {
+    const { username, password,surePassword } = userInfo
+    return new Promise((resolve, reject) => {
+      login({ username: username.trim(), password: password }).then(response => {
+        const { data } = response
+        resolve()
+      }).catch(error => {
+        reject(error)
+      })
+    })
+  },
+  // 获取用户信息
   getInfo({ commit, state }) {
     return new Promise((resolve, reject) => {
       getInfo(state.token).then(response => {

@@ -1,9 +1,8 @@
 <template>
-  <div class="login-container">
-    <el-form ref="loginForm" :model="loginForm" :rules="loginRules" class="login-form" auto-complete="on" label-position="left">
-
+  <div class="register-container">
+    <el-form ref="registerForm" :model="registerForm" :rules="registerRules" class="register-form" auto-complete="on" label-position="left">
       <div class="title-container">
-        <h3 class="title">Login Form</h3>
+        <h3 class="title">后台管理系统——注册</h3>
       </div>
 
       <el-form-item prop="username">
@@ -12,12 +11,11 @@
         </span>
         <el-input
           ref="username"
-          v-model="loginForm.username"
-          placeholder="Username"
+          v-model="registerForm.username"
+          placeholder="用户名"
           name="username"
           type="text"
           tabindex="1"
-          auto-complete="on"
         />
       </el-form-item>
 
@@ -28,73 +26,86 @@
         <el-input
           :key="passwordType"
           ref="password"
-          v-model="loginForm.password"
+          v-model="registerForm.password"
           :type="passwordType"
-          placeholder="Password"
+          placeholder="密码"
           name="password"
-          tabindex="2"
-          auto-complete="on"
-          @keyup.enter.native="handleLogin"
-        />
+          tabindex="2"/>
         <span class="show-pwd" @click="showPwd">
           <svg-icon :icon-class="passwordType === 'password' ? 'eye' : 'eye-open'" />
         </span>
       </el-form-item>
 
-      <el-button :loading="loading" type="primary" style="width:100%;margin-bottom:30px;" @click.native.prevent="handleLogin">Login</el-button>
+      <el-form-item prop="surePassword">
+        <span class="svg-container">
+          <svg-icon icon-class="password" />
+        </span>
+        <el-input
+          :key="surePasswordType"
+          ref="surePassword"
+          v-model="registerForm.surePassword"
+          :type="surePasswordType"
+          placeholder="确认密码"
+          name="surePassword"
+          tabindex="3"
+          @keyup.enter.native="handleRegister"/>
+        <span class="show-pwd" @click="showSurePwd">
+          <svg-icon :icon-class="surePasswordType === 'password' ? 'eye' : 'eye-open'" />
+        </span>
+      </el-form-item>
 
-      <div class="tips">
-        <span style="margin-right:20px;">username: admin</span>
-        <span> password: any</span>
-      </div>
+      <div class="go-login" @click="goLogin">已有账号</div>
 
+      <el-button :loading="loading" type="primary" style="width:100%;margin-bottom:30px;" @click.native.prevent="handleRegister">注册</el-button>
     </el-form>
   </div>
 </template>
-
 <script>
 import { validUsername } from '@/utils/validate'
-
 export default {
-  name: 'Login',
+  name: 'Register',
   data() {
     const validateUsername = (rule, value, callback) => {
       if (!validUsername(value)) {
-        callback(new Error('Please enter the correct user name'))
+        callback(new Error('请填写正确的用户名！'))
       } else {
         callback()
       }
     }
     const validatePassword = (rule, value, callback) => {
       if (value.length < 6) {
-        callback(new Error('The password can not be less than 6 digits'))
+        callback(new Error('密码不能少于6位！'))
       } else {
         callback()
       }
     }
-    return {
-      loginForm: {
-        username: 'admin',
-        password: '111111'
-      },
-      loginRules: {
-        username: [{ required: true, trigger: 'blur', validator: validateUsername }],
-        password: [{ required: true, trigger: 'blur', validator: validatePassword }]
-      },
-      loading: false,
-      passwordType: 'password',
-      redirect: undefined
+    const validatesurePassword = (rule, value, callback) => {
+      if (value.length < 6) {
+        callback(new Error('密码不能少于6位！'))
+      } else if(value!=this.registerForm.password){
+        callback(new Error('确认密码与密码不一致！'))
+      }else {
+        callback()
+      }
     }
-  },
-  watch: {
-    $route: {
-      handler: function(route) {
-        this.redirect = route.query && route.query.redirect
+    return {
+      registerForm: {// 表单
+        username: '',
+        password: '',
+        surePassword: '',
       },
-      immediate: true
+      registerRules: {// 表单验证
+        username: [{ required: true, trigger: 'blur', validator: validateUsername }],
+        password: [{ required: true, trigger: 'blur', validator: validatePassword }],
+        surePassword: [{ required: true, trigger: 'blur', validator: validatesurePassword }]
+      },
+      loading: false,// 注册按钮加载
+      passwordType: 'password',// 密码是否显示
+      surePasswordType: 'password',// 确认密码是否显示
     }
   },
   methods: {
+    // 密码是否显示
     showPwd() {
       if (this.passwordType === 'password') {
         this.passwordType = ''
@@ -105,21 +116,35 @@ export default {
         this.$refs.password.focus()
       })
     },
-    handleLogin() {
-      this.$refs.loginForm.validate(valid => {
+    // 确认密码是否显示
+    showSurePwd() {
+      if (this.surePasswordType === 'password') {
+        this.surePasswordType = ''
+      } else {
+        this.surePasswordType = 'password'
+      }
+      this.$nextTick(() => {
+        this.$refs.surePassword.focus()
+      })
+    },
+    // 注册
+    handleRegister() {
+      this.$refs.registerForm.validate(valid => {
         if (valid) {
           this.loading = true
-          this.$store.dispatch('user/login', this.loginForm).then(() => {
-            this.$router.push({ path: this.redirect || '/' })
+          this.$store.dispatch('user/register', this.registerForm).then(() => {
+            this.$message.success('注册成功，返回登录！')
+            this.$router.push('/login')  
             this.loading = false
           }).catch(() => {
             this.loading = false
           })
-        } else {
-          console.log('error submit!!')
-          return false
         }
       })
+    },
+    // 注册
+    goLogin(){
+      this.$router.push('/login')  
     }
   }
 }
@@ -134,13 +159,13 @@ $light_gray:#fff;
 $cursor: #fff;
 
 @supports (-webkit-mask: none) and (not (cater-color: $cursor)) {
-  .login-container .el-input input {
+  .register-container .el-input input {
     color: $cursor;
   }
 }
 
 /* reset element-ui css */
-.login-container {
+.register-container {
   .el-input {
     display: inline-block;
     height: 47px;
@@ -177,31 +202,19 @@ $bg:#2d3a4b;
 $dark_gray:#889aa4;
 $light_gray:#eee;
 
-.login-container {
+.register-container {
   min-height: 100%;
   width: 100%;
   background-color: $bg;
   overflow: hidden;
 
-  .login-form {
+  .register-form {
     position: relative;
     width: 520px;
     max-width: 100%;
     padding: 160px 35px 0;
     margin: 0 auto;
     overflow: hidden;
-  }
-
-  .tips {
-    font-size: 14px;
-    color: #fff;
-    margin-bottom: 10px;
-
-    span {
-      &:first-of-type {
-        margin-right: 16px;
-      }
-    }
   }
 
   .svg-container {
@@ -232,6 +245,15 @@ $light_gray:#eee;
     color: $dark_gray;
     cursor: pointer;
     user-select: none;
+  }
+
+  .go-login{
+    color: $light_gray;
+    float:right;
+    font-size:13px;
+    margin: -10px 0 10px;
+    cursor:pointer;
+    text-decoration:underline
   }
 }
 </style>

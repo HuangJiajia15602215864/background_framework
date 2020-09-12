@@ -53,30 +53,30 @@ export default {
   data() {
     const validateUsername = (rule, value, callback) => {
       if (!validUsername(value)) {
-        callback(new Error('Please enter the correct user name'))
+        callback(new Error('请填写正确的用户名！'))
       } else {
         callback()
       }
     }
     const validatePassword = (rule, value, callback) => {
       if (value.length < 6) {
-        callback(new Error('The password can not be less than 6 digits'))
+        callback(new Error('密码不能少于6位！'))
       } else {
         callback()
       }
     }
     return {
-      loginForm: {
+      loginForm: {// 表单
         username: '',
         password: ''
       },
-      loginRules: {
+      loginRules: {// 表单验证
         username: [{ required: true, trigger: 'blur', validator: validateUsername }],
         password: [{ required: true, trigger: 'blur', validator: validatePassword }]
       },
-      loading: false,
-      passwordType: 'password',
-      redirect: undefined
+      loading: false,// 登录按钮加载
+      passwordType: 'password',// 密码是否显示
+      redirect: undefined // 重定向地址
     }
   },
   watch: {
@@ -88,6 +88,7 @@ export default {
     }
   },
   methods: {
+    // 密码是否显示
     showPwd() {
       if (this.passwordType === 'password') {
         this.passwordType = ''
@@ -98,6 +99,7 @@ export default {
         this.$refs.password.focus()
       })
     },
+    // 登录
     handleLogin() {
       this.$refs.loginForm.validate(valid => {
         if (valid) {
@@ -108,12 +110,10 @@ export default {
           }).catch(() => {
             this.loading = false
           })
-        } else {
-          console.log('error submit!!')
-          return false
         }
       })
     },
+    // 注册
     goRegister(){
       this.$router.push('/register')  
     }
