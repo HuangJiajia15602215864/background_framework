@@ -7,8 +7,7 @@
     <div class="right-menu">
       <el-dropdown class="avatar-container" trigger="click">
         <div class="avatar-wrapper">
-          <img :src="avatar+'?imageView2/1/w/80/h/80'" class="user-avatar">
-          <i class="el-icon-caret-bottom" />
+          <img src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png" class="user-avatar">
         </div>
         <el-dropdown-menu slot="dropdown" class="user-dropdown">
           <router-link to="/">
@@ -16,12 +15,18 @@
               Home
             </el-dropdown-item>
           </router-link>
-          <a target="_blank" href="https://panjiachen.github.io/vue-element-admin-site/#/">
-            <el-dropdown-item>{{$t('message.el.colorpicker.confirm')}}</el-dropdown-item>
-          </a>
           <el-dropdown-item divided @click.native="logout">
             <span style="display:block;">退出</span>
           </el-dropdown-item>
+        </el-dropdown-menu>
+      </el-dropdown>
+      <el-dropdown @command="handleCommand" class="i18n-container">
+        <div class="avatar-wrapper">
+          <img src="@/assets/images/earth.png" class="user-avatar">
+        </div>
+        <el-dropdown-menu slot="dropdown">
+          <el-dropdown-item command="zh">ZH 简体中文</el-dropdown-item>
+          <el-dropdown-item command="en" divided>EN English</el-dropdown-item>
         </el-dropdown-menu>
       </el-dropdown>
     </div>
@@ -51,6 +56,10 @@ export default {
     async logout() {
       await this.$store.dispatch('user/logout')
       this.$router.push(`/login?redirect=${this.$route.fullPath}`)
+    },
+    handleCommand(command){
+      this.$i18n.locale=command=='zh'?'zh':'en';
+      window.localStorage.setItem("lang",this.$i18n.locale);
     }
   }
 }
@@ -109,7 +118,7 @@ export default {
     }
 
     .avatar-container {
-      margin-right: 30px;
+      margin-right: 10px;
 
       .avatar-wrapper {
         margin-top: 5px;
@@ -121,15 +130,19 @@ export default {
           height: 40px;
           border-radius: 10px;
         }
-
-        .el-icon-caret-bottom {
-          cursor: pointer;
-          position: absolute;
-          right: -20px;
-          top: 25px;
-          font-size: 12px;
-        }
       }
+    }
+    .i18n-container{
+      .avatar-wrapper {
+        position: relative;
+
+        .user-avatar {
+          cursor: pointer;
+          width: 30px;
+          height: 30px;
+          border-radius: 8px;
+        }
+      } 
     }
   }
 }

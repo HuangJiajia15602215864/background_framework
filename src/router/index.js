@@ -42,7 +42,7 @@ export const constantRoutes = [
     component: Layout,
     redirect: '/component/table',
     name: 'Component',
-    meta: { title: '组件库', icon: 'el-icon-s-help' },
+    meta: { title: '组件库', icon: 'el-icon-eleme' },
     children: [
       {
         path: 'table',
@@ -55,7 +55,13 @@ export const constantRoutes = [
         name: 'Form',
         component: () => import('@/views/component/form'),
         meta: { title: '表单', icon: 'form' }
-      }
+      },
+      {
+        path: 'datePicker',
+        name: 'datePicker',
+        component: () => import('@/views/component/datePicker'),
+        meta: { title: '日期选择器', icon: 'datePicker' }
+      },
     ]
   },
   {
@@ -69,7 +75,19 @@ export const constantRoutes = [
         path: 'i18n',
         name: 'I18n',
         component: () => import('@/views/plug/i18n'),
-        meta: { title: '国际化', icon: 'table' }
+        meta: { title: '国际化', icon: 'earth' }
+      },
+      {
+        path: 'drag',
+        name: 'drag',
+        component: () => import('@/views/plug/drag'),
+        meta: { title: '拖拽', icon: 'drag' }
+      },
+      {
+        path: 'count',
+        name: 'count',
+        component: () => import('@/views/plug/count'),
+        meta: { title: '数字滚动', icon: 'count' }
       }
     ]
   },
