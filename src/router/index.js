@@ -4,8 +4,7 @@ import Router from 'vue-router'
 Vue.use(Router)
 import Layout from '@/layout'
 
-export const constantRoutes = [
-  {
+export const constantRoutes = [{
     path: '/login',
     component: () => import('@/views/user/login'),
     hidden: true
@@ -34,7 +33,10 @@ export const constantRoutes = [
       path: 'dashboard',
       name: 'Dashboard',
       component: () => import('@/views/dashboard/index'),
-      meta: { title: 'Dashboard', icon: 'dashboard' }
+      meta: {
+        title: 'Dashboard',
+        icon: 'dashboard'
+      }
     }]
   },
   {
@@ -42,25 +44,146 @@ export const constantRoutes = [
     component: Layout,
     redirect: '/component/table',
     name: 'Component',
-    meta: { title: '组件库', icon: 'el-icon-eleme' },
-    children: [
-      {
+    meta: {
+      title: '组件库',
+      icon: 'el-icon-eleme'
+    },
+    children: [{
         path: 'table',
         name: 'Table',
         component: () => import('@/views/component/table'),
-        meta: { title: '表格', icon: 'table' }
+        meta: {
+          title: '表格',
+          icon: 'table'
+        }
       },
       {
         path: 'form',
         name: 'Form',
         component: () => import('@/views/component/form'),
-        meta: { title: '表单', icon: 'form' }
+        meta: {
+          title: '表单',
+          icon: 'form'
+        }
       },
       {
         path: 'datePicker',
         name: 'datePicker',
         component: () => import('@/views/component/datePicker'),
-        meta: { title: '日期选择器', icon: 'datePicker' }
+        meta: {
+          title: '日期选择器',
+          icon: 'datePicker'
+        }
+      },
+    ]
+  },
+  {
+    path: '/chart',
+    component: Layout,
+    redirect: '/chart/line',
+    name: 'chart',
+    meta: {
+      title: 'E-charts',
+      icon: 'chart'
+    },
+    children: [{
+        path: 'line',
+        name: 'line',
+        component: () => import('@/views/chart/line'),
+        meta: {
+          title: '折线图',
+          icon: 'line'
+        }
+      },
+      {
+        path: 'bar',
+        name: 'bar',
+        component: () => import('@/views/chart/bar'),
+        meta: {
+          title: '柱状图',
+          icon: 'bar'
+        }
+      },
+      {
+        path: 'pie',
+        name: 'pie',
+        component: () => import('@/views/chart/pie'),
+        meta: {
+          title: '饼图+富文本',
+          icon: 'pie'
+        }
+      },
+      {
+        path: 'map',
+        name: 'map',
+        component: () => import('@/views/chart/map'),
+        meta: {
+          title: '地图',
+          icon: 'map'
+        }
+      },
+      {
+        path: 'radar',
+        name: 'radar',
+        component: () => import('@/views/chart/radar'),
+        meta: {
+          title: '雷达图',
+          icon: 'radar'
+        }
+      },
+      {
+        path: 'heatMap',
+        name: 'heatMap',
+        component: () => import('@/views/chart/heatMap'),
+        meta: {
+          title: '热力图',
+          icon: 'heatMap'
+        }
+      },
+      {
+        path: 'tree',
+        name: 'tree',
+        component: () => import('@/views/chart/tree'),
+        meta: {
+          title: '数图',
+          icon: 'tree'
+        }
+      },
+      {
+        path: 'funnel',
+        name: 'funnel',
+        component: () => import('@/views/chart/funnel'),
+        meta: {
+          title: '漏斗图',
+          icon: 'funnel'
+        }
+      },
+      {
+        path: 'gauge',
+        name: 'gauge',
+        component: () => import('@/views/chart/gauge'),
+        meta: {
+          title: '仪表盘',
+          icon: 'gauge'
+        }
+      },
+      {
+        path: 'pictorialBar',
+        name: 'pictorialBar',
+        component: () => import('@/views/chart/pictorialBar'),
+        meta: {
+          title: '象形柱图',
+          icon: 'pictorialBar'
+        }
+      },
+      {
+        path: 'calendar',
+        name: 'calendar',
+        component: () => import('@/views/chart/calendar'),
+        meta: {
+          title: '日历坐标系',
+          icon: 'calendar'
+        }
       },
     ]
   },
@@ -69,33 +192,50 @@ export const constantRoutes = [
     component: Layout,
     redirect: '/plug/i18n',
     name: 'Plug',
-    meta: { title: '插件', icon: 'el-icon-s-help' },
-    children: [
-      {
+    meta: {
+      title: '插件',
+      icon: 'el-icon-s-help'
+    },
+    children: [{
         path: 'i18n',
         name: 'I18n',
         component: () => import('@/views/plug/i18n'),
-        meta: { title: '国际化', icon: 'earth' }
+        meta: {
+          title: '国际化',
+          icon: 'earth'
+        }
       },
       {
         path: 'drag',
         name: 'drag',
         component: () => import('@/views/plug/drag'),
-        meta: { title: '拖拽', icon: 'drag' }
+        meta: {
+          title: '拖拽',
+          icon: 'drag'
+        }
       },
       {
         path: 'count',
         name: 'count',
         component: () => import('@/views/plug/count'),
-        meta: { title: '数字滚动', icon: 'count' }
+        meta: {
+          title: '数字滚动',
+          icon: 'count'
+        }
       }
     ]
   },
-  { path: '*', redirect: '/404', hidden: true }
+  {
+    path: '*',
+    redirect: '/404',
+    hidden: true
+  }
 ]
 
 const createRouter = () => new Router({
-  scrollBehavior: () => ({ y: 0 }),
+  scrollBehavior: () => ({
+    y: 0
+  }),
   routes: constantRoutes
 })
 
