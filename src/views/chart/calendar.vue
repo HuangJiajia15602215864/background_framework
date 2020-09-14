@@ -1,79 +1,149 @@
 <template>
-  <div class="app-container">
-    <el-table
-      v-loading="listLoading"
-      :data="list"
-      element-loading-text="Loading"
-      border
-      fit
-      highlight-current-row
-    >
-      <el-table-column align="center" label="ID" width="95">
-        <template slot-scope="scope">
-          {{ scope.$index }}
-        </template>
-      </el-table-column>
-      <el-table-column label="Title">
-        <template slot-scope="scope">
-          {{ scope.row.title }}
-        </template>
-      </el-table-column>
-      <el-table-column label="Author" width="110" align="center">
-        <template slot-scope="scope">
-          <span>{{ scope.row.author }}</span>
-        </template>
-      </el-table-column>
-      <el-table-column label="Pageviews" width="110" align="center">
-        <template slot-scope="scope">
-          {{ scope.row.pageviews }}
-        </template>
-      </el-table-column>
-      <el-table-column class-name="status-col" label="Status" width="110" align="center">
-        <template slot-scope="scope">
-          <el-tag :type="scope.row.status | statusFilter">{{ scope.row.status }}</el-tag>
-        </template>
-      </el-table-column>
-      <el-table-column align="center" prop="created_at" label="Display_time" width="200">
-        <template slot-scope="scope">
-          <i class="el-icon-time" />
-          <span>{{ scope.row.display_time }}</span>
-        </template>
-      </el-table-column>
-    </el-table>
-  </div>
+  <div :class="className" :style="{height:height,width:width}" />
 </template>
 
 <script>
-import { getList } from '@/api/table'
+  import echarts from 'echarts'
+  require('echarts/theme/macarons') // echarts theme
+  import resize from './mixins/resize'
 
-export default {
-  filters: {
-    statusFilter(status) {
-      const statusMap = {
-        published: 'success',
-        draft: 'gray',
-        deleted: 'danger'
+  export default {
+    mixins: [resize],
+    props: {
+      className: {
+        type: String,
+        default: 'chart'
+      },
+      width: {
+        type: String,
+        default: '100%'
+      },
+      height: {
+        type: String,
+        default: '350px'
+      },
+      autoResize: {
+        type: Boolean,
+        default: true
+      },
+      // chartData: {
+      //   type: Object,
+      //   required: true,
+      //   default: {
+      //     expectedData: [100, 120, 161, 134, 105, 160, 165],
+      //     actualData: [120, 82, 91, 154, 162, 140, 145]
+      //   },
+      //}
+    },
+    data() {
+      return {
+        chart: null,
+        chartData: {
+          expectedData: [100, 120, 161, 134, 105, 160, 165],
+          actualData: [120, 82, 91, 154, 162, 140, 145]
+        },
       }
-      return statusMap[status]
-    }
-  },
-  data() {
-    return {
-      list: null,
-      listLoading: true
-    }
-  },
-  created() {
-    this.fetchData()
-  },
-  methods: {
-    fetchData() {
-      this.listLoading = true
-      getList().then(response => {
-        this.list = response.data.items
-        this.listLoading = false
+    },
+    watch: {
+      chartData: {
+        deep: true,
+        handler(val) {
+          this.setOptions(val)
+        }
+      }
+    },
+    mounted() {
+      this.$nextTick(() => {
+        this.initChart()
       })
+    },
+    beforeDestroy() {
+      if (!this.chart) {
+        return
+      }
+      this.chart.dispose()
+      this.chart = null
+    },
+    methods: {
+      initChart() {
+        this.chart = echarts.init(this.$el, 'macarons')
+        this.setOptions(this.chartData)
+      },
+      setOptions({
+        expectedData,
+        actualData
+      } = {}) {
+        this.chart.setOption({
+          xAxis: {
+            data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+            boundaryGap: false,
+            axisTick: {
+              show: true
+            }
+          },
+          grid: {
+            left: 10,
+            right: 10,
+            bottom: 20,
+            top: 30,
+            containLabel: true
+          },
+          tooltip: {
+            trigger: 'axis',
+            axisPointer: {
+              type: 'cross'
+            },
+            padding: [5, 10]
+          },
+          yAxis: {
+            axisTick: {
+              show: false
+            }
+          },
+          legend: {
+            data: ['expected', 'actual']
+          },
+          series: [{
+              name: 'expected',
+              itemStyle: {
+                normal: {
+                  color: '#FF005A',
+                  lineStyle: {
+                    color: '#FF005A',
+                    width: 2
+                  }
+                }
+              },
+              smooth: true,
+              type: 'line',
+              data: expectedData,
+              animationDuration: 2800,
+              animationEasing: 'cubicInOut'
+            },
+            {
+              name: 'actual',
+              smooth: true,
+              type: 'line',
+              itemStyle: {
+                normal: {
+                  color: '#3888fa',
+                  lineStyle: {
+                    color: '#3888fa',
+                    width: 2
+                  },
+                  areaStyle: {
+                    color: '#f3f8ff'
+                  }
+                }
+              },
+              data: actualData,
+              animationDuration: 2800,
+              animationEasing: 'quadraticOut'
+            }
+          ]
+        })
+      }
     }
   }
-}
+
 </script>
