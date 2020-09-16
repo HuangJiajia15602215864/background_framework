@@ -45,7 +45,7 @@ export const constantRoutes = [{
     redirect: '/component/table',
     name: 'Component',
     meta: {
-      title: '组件库',
+      title: 'element组件',
       icon: 'el-icon-eleme'
     },
     children: [{
@@ -73,6 +73,15 @@ export const constantRoutes = [{
         meta: {
           title: '日期选择器',
           icon: 'datePicker'
+        }
+      },
+      {
+        path: 'dragSelect',
+        name: 'dragSelect',
+        component: () => import('@/views/component/dragSelect'),
+        meta: {
+          title: '拖拽选择器',
+          icon: 'dragSelect'
         }
       },
     ]
