@@ -1,68 +1,41 @@
 <template>
-  <div :class="className" :style="{height:height,width:width}" />
+  <div>
+    <el-tabs v-model="activeName" @tab-click="handleClick" type="border-card">
+      <el-tab-pane label="calendar-pie" name="first">
+        <pie v-if="pie" />
+      </el-tab-pane>
+      <el-tab-pane label="calendar-heatmap" name="second">
+        <heatmap v-if="heatmap" />
+      </el-tab-pane>
+    </el-tabs>
+  </div>
 </template>
 
 <script>
-  import echarts from 'echarts'
-  require('echarts/theme/macarons') // echarts theme
-  import resize from '@/components/chart/mixins/resize'
+  import pie from '@/components/Calendar/pie.vue'
+  import heatmap from '@/components/Calendar/heatmap.vue'
   export default {
-    mixins: [resize],
-    props: {
-      className: {
-        type: String,
-        default: 'chart'
-      },
-      width: {
-        type: String,
-        default: '100%'
-      },
-      height: {
-        type: String,
-        default: '350px'
-      },
-      autoResize: {
-        type: Boolean,
-        default: true
-      },
-      option: {
-        type: Object,
-        required: true
-      }
+    components: {
+      pie,
+      heatmap
     },
     data() {
       return {
-        chart: null
+        activeName: 'first',
+        pie: true,
+        heatmap: false,
       }
-    },
-    watch: {
-      option: {
-        deep: true,
-        handler(val) {
-          this.setOptions(val)
-        }
-      }
-    },
-    mounted() {
-      this.$nextTick(() => {
-        this.initChart()
-      })
-    },
-    beforeDestroy() {
-      if (!this.chart) {
-        return
-      }
-      this.chart.dispose()
-      this.chart = null
     },
     methods: {
-      initChart() {
-        this.chart = echarts.init(this.$el, 'macarons')
-        this.setOptions()
+      handleClick(tab, event) {
+        if (tab.name == 'first') {
+          this.pie = true
+          this.heatmap = false
+        }else{
+          this.pie = false
+          this.heatmap = true
+        }
       },
-      setOptions() {
-        this.chart.setOption(this.option)
-      }
     }
   }
 
