@@ -1,79 +1,242 @@
 <template>
-  <div class="app-container">
-    <el-table
-      v-loading="listLoading"
-      :data="list"
-      element-loading-text="Loading"
-      border
-      fit
-      highlight-current-row
-    >
-      <el-table-column align="center" label="ID" width="95">
-        <template slot-scope="scope">
-          {{ scope.$index }}
-        </template>
-      </el-table-column>
-      <el-table-column label="Title">
-        <template slot-scope="scope">
-          {{ scope.row.title }}
-        </template>
-      </el-table-column>
-      <el-table-column label="Author" width="110" align="center">
-        <template slot-scope="scope">
-          <span>{{ scope.row.author }}</span>
-        </template>
-      </el-table-column>
-      <el-table-column label="Pageviews" width="110" align="center">
-        <template slot-scope="scope">
-          {{ scope.row.pageviews }}
-        </template>
-      </el-table-column>
-      <el-table-column class-name="status-col" label="Status" width="110" align="center">
-        <template slot-scope="scope">
-          <el-tag :type="scope.row.status | statusFilter">{{ scope.row.status }}</el-tag>
-        </template>
-      </el-table-column>
-      <el-table-column align="center" prop="created_at" label="Display_time" width="200">
-        <template slot-scope="scope">
-          <i class="el-icon-time" />
-          <span>{{ scope.row.display_time }}</span>
-        </template>
-      </el-table-column>
-    </el-table>
+  <div class="pie">
+    <chart :option="textOption" width="48%" height="500px" style="float:left;" />
+    <chart :option="customOption" width="30%" height="500px" style="float:left" />
+    <!-- <chart :option="datasetOption" width="60%" height="400px" style="float:left;margin-top:-50px" />
+    <chart :option="stackOption" width="60%" height="400px" style="float:left;margin-top:30px" /> -->
   </div>
 </template>
-
 <script>
-import { getList } from '@/api/table'
-
-export default {
-  filters: {
-    statusFilter(status) {
-      const statusMap = {
-        published: 'success',
-        draft: 'gray',
-        deleted: 'danger'
+  //import echarts from 'echarts'
+  import chart from '@/components/chart/index.vue'
+  export default {
+    name: 'pie',
+    components: {
+      chart
+    },
+    data() {
+      return {
+        textOption: {
+          tooltip: {
+            trigger: 'item',
+            formatter: '{a} <br/>{b} : {c} ({d}%)'
+          },
+          legend: {
+            top: 0,
+            left: 'center',
+            data: ['西凉', '益州', '兖州', '荆州', '幽州']
+          },
+          series: [{
+            name: '天气情况',
+            type: 'pie',
+            radius: ['50%', '70%'], // '65%'+center为实心圆
+            //center: ['50%', '50%'],
+            selectedMode: 'single', // 是否支持多个选中'single'，'multiple'
+            data: [{
+                value: 1548,
+                name: '幽州',
+                // label: {// 空心圆的label在圆心位置
+                //   show: false,
+                //   position: 'center'
+                // },
+                label: {
+                  formatter: [ // 富文本
+                    '{title|{b}}{abg|}',
+                    '  {weatherHead|天气}{valueHead|天数}{rateHead|占比}',
+                    '{hr|}',
+                    '  {Sunny|Sunny}{value|202}{rate|55.3%}',
+                    '  {Cloudy|Cloudy}{value|142}{rate|38.9%}',
+                    '  {Showers|Showers}{value|21}{rate|5.8%}'
+                  ].join('\n'),
+                  backgroundColor: '#eee',
+                  borderColor: '#777',
+                  borderWidth: 1,
+                  borderRadius: 4,
+                  rich: { // 富文本样式
+                    title: {
+                      color: '#eee',
+                      align: 'center'
+                    },
+                    abg: {
+                      backgroundColor: '#333',
+                      width: '100%',
+                      align: 'right',
+                      height: 25,
+                      borderRadius: [4, 4, 0, 0]
+                    },
+                    Sunny: {
+                      height: 30,
+                      align: 'left',
+                      backgroundColor: { // 放置图片
+                        image: ''
+                      }
+                    },
+                    Cloudy: {
+                      height: 30,
+                      align: 'left',
+                      backgroundColor: {
+                        image: ''
+                      }
+                    },
+                    Showers: {
+                      height: 30,
+                      align: 'left',
+                      backgroundColor: {
+                        image: ''
+                      }
+                    },
+                    weatherHead: {
+                      color: '#333',
+                      height: 24,
+                      align: 'left'
+                    },
+                    hr: {
+                      borderColor: '#777',
+                      width: '100%',
+                      borderWidth: 0.5,
+                      height: 0
+                    },
+                    value: {
+                      width: 20,
+                      padding: [0, 20, 0, 30],
+                      align: 'left'
+                    },
+                    valueHead: {
+                      color: '#333',
+                      width: 20,
+                      padding: [0, 20, 0, 30],
+                      align: 'center'
+                    },
+                    rate: {
+                      width: 40,
+                      align: 'right',
+                      padding: [0, 10, 0, 0]
+                    },
+                    rateHead: {
+                      color: '#333',
+                      width: 40,
+                      align: 'center',
+                      padding: [0, 10, 0, 0]
+                    }
+                  }
+                }
+              },
+              {
+                value: 535,
+                name: '荆州'
+              },
+              {
+                value: 510,
+                name: '兖州'
+              },
+              {
+                value: 634,
+                name: '益州'
+              },
+              {
+                value: 735,
+                name: '西凉'
+              }
+            ],
+            emphasis: {
+              itemStyle: {
+                shadowBlur: 10,
+                shadowOffsetX: 0,
+                shadowColor: 'rgba(0, 0, 0, 0.5)'
+              }
+            }
+          }]
+        },
+        customOption: {
+          backgroundColor: '#2c343c',// 背景颜色
+          title: {// 标题
+            text: 'Customized Pie',
+            left: 'center',
+            top: 20,
+            textStyle: {
+              color: '#ccc'
+            }
+          },
+          tooltip: {
+            trigger: 'item',
+            formatter: '{a} <br/>{b} : {c} ({d}%)'
+          },
+          visualMap: {// 颜色亮度变化
+            show: false,
+            min: 80,
+            max: 600,
+            inRange: {
+              colorLightness: [0, 1]
+            }
+          },
+          series: [{
+            name: '访问来源',
+            type: 'pie',
+            radius: '55%',
+            center: ['50%', '50%'],
+            data: [{
+                value: 335,
+                name: '直接访问'
+              },
+              {
+                value: 310,
+                name: '邮件营销'
+              },
+              {
+                value: 274,
+                name: '联盟广告'
+              },
+              {
+                value: 235,
+                name: '视频广告'
+              },
+              {
+                value: 400,
+                name: '搜索引擎'
+              }
+            ].sort(function (a, b) {// 本：顺时针排序，sort：逆时针排序
+              return a.value - b.value;
+            }),
+            roseType: 'radius',// 每块有大小之分
+            label: {// 提示文字样式
+              color: 'rgba(255, 255, 255, 0.3)'
+            },
+            labelLine: {// 提示线条样式
+              lineStyle: {
+                color: 'rgba(255, 255, 255, 0.3)'
+              },
+              smooth: 0.2,
+              length: 10,
+              length2: 20
+            },
+            itemStyle: {// 每块颜色
+              color: '#c23531',
+              shadowBlur: 200,
+              shadowColor: 'rgba(0, 0, 0, 0.5)'
+            },
+            animationType: 'scale',
+            animationEasing: 'elasticOut',
+            animationDelay: function (idx) {
+              return Math.random() * 200;
+            }
+          }]
+        }
       }
-      return statusMap[status]
-    }
-  },
-  data() {
-    return {
-      list: null,
-      listLoading: true
-    }
-  },
-  created() {
-    this.fetchData()
-  },
-  methods: {
-    fetchData() {
-      this.listLoading = true
-      getList().then(response => {
-        this.list = response.data.items
-        this.listLoading = false
-      })
+    },
+    mounted() {
+      this.getPic()
+    },
+    methods: {
+      getPic() {}
     }
   }
-}
+
 </script>
+<style lang="scss" scoped>
+  .pie {
+    background: #fff;
+    padding: 16px 5px 0 5px;
+    min-height: 1400px;
+  }
+
+</style>
