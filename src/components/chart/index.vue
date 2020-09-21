@@ -4,6 +4,9 @@
 
 <script>
   import echarts from 'echarts'
+  //import china from 'echarts/map/json/china.json'
+  import 'echarts/map/js/china.js'
+  import 'echarts/map/json/china.json'
   require('echarts/theme/macarons') // echarts theme
   import resize from './mixins/resize'
   export default {
