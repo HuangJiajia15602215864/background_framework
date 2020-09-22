@@ -2,7 +2,8 @@
   <div class="radar">
     <chart :option="radarOption" width="50%" style="float:left" />
     <chart :option="markerOption" width="50%" style="float:left;margin-top:50px" />
-    <chart :option="aqiOption" width="100%" height="600px" style="float:left" />
+    <chart :option="colorOption" width="100%" height="600px" style="float:left;margin-top: 20px;" />
+    <chart :option="aqiOption" width="100%" height="600px" style="float:left;margin-top: 20px;" />
   </div>
 </template>
 <script>
@@ -14,6 +15,87 @@
     },
     data() {
       return {
+        colorOption: {
+          title: {
+            text: '浏览器占比变化',
+            subtext: '纯属虚构',
+            top: 10,
+            left: 10
+          },
+          tooltip: {
+            trigger: 'item',
+            backgroundColor: 'rgba(0,0,250,0.2)'
+          },
+          legend: {
+            type: 'scroll',
+            bottom: 10,
+            data: (function () {
+              var list = [];
+              for (var i = 1; i <= 28; i++) {
+                list.push(i + 2000 + '');
+              }
+              return list;
+            })()
+          },
+          visualMap: {
+            top: 'middle',
+            right: 10,
+            color: ['red', 'yellow'],
+            calculable: true
+          },
+          radar: {
+            indicator: [{
+                text: 'IE8-',
+                max: 400
+              },
+              {
+                text: 'IE9+',
+                max: 400
+              },
+              {
+                text: 'Safari',
+                max: 400
+              },
+              {
+                text: 'Firefox',
+                max: 400
+              },
+              {
+                text: 'Chrome',
+                max: 400
+              }
+            ]
+          },
+          series: (function () {
+            var series = [];
+            for (var i = 1; i <= 28; i++) {
+              series.push({
+                name: '浏览器（数据纯属虚构）',
+                type: 'radar',
+                symbol: 'none',
+                lineStyle: {
+                  width: 1
+                },
+                emphasis: {
+                  areaStyle: {
+                    color: 'rgba(0,250,0,0.3)'
+                  }
+                },
+                data: [{
+                  value: [
+                    (40 - i) * 10,
+                    (38 - i) * 4 + 60,
+                    i * 5 + 10,
+                    i * 9,
+                    i * i / 2
+                  ],
+                  name: i + 2000 + ''
+                }]
+              });
+            }
+            return series;
+          })()
+        },
         markerOption: {
           tooltip: {
             trigger: 'axis',
@@ -70,7 +152,7 @@
           series: [{
             type: 'radar',
             symbolSize: 0,
-            areaStyle: {// 块（而不是线）
+            areaStyle: { // 块（而不是线）
               normal: {
                 shadowBlur: 13,
                 shadowColor: 'rgba(0,0,0,.2)',
@@ -258,11 +340,20 @@
             // areaStyle: {normal: {}},
             data: [{
                 value: [4300, 10000, 28000, 35000, 50000, 19000],
-                name: '预算分配（Allocated Budget）'
+                name: '预算分配（Allocated Budget）',
+                label: { // 显示数值
+                  show: true,
+                  formatter: function (params) {
+                    return params.value;
+                  }
+                }
               },
               {
                 value: [5000, 14000, 28000, 31000, 42000, 21000],
-                name: '实际开销（Actual Spending）'
+                name: '实际开销（Actual Spending）',
+                lineStyle: { // 虚线
+                  type: 'dashed'
+                }
               }
             ]
           }]
