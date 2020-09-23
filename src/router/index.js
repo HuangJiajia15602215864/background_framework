@@ -154,7 +154,7 @@ export const constantRoutes = [{
         name: 'tree',
         component: () => import('@/views/chart/tree'),
         meta: {
-          title: '数图',
+          title: '树图',
           icon: 'tree'
         }
       },

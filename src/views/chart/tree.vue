@@ -1,79 +1,146 @@
 <template>
-  <div class="app-container">
-    <el-table
-      v-loading="listLoading"
-      :data="list"
-      element-loading-text="Loading"
-      border
-      fit
-      highlight-current-row
-    >
-      <el-table-column align="center" label="ID" width="95">
-        <template slot-scope="scope">
-          {{ scope.$index }}
-        </template>
-      </el-table-column>
-      <el-table-column label="Title">
-        <template slot-scope="scope">
-          {{ scope.row.title }}
-        </template>
-      </el-table-column>
-      <el-table-column label="Author" width="110" align="center">
-        <template slot-scope="scope">
-          <span>{{ scope.row.author }}</span>
-        </template>
-      </el-table-column>
-      <el-table-column label="Pageviews" width="110" align="center">
-        <template slot-scope="scope">
-          {{ scope.row.pageviews }}
-        </template>
-      </el-table-column>
-      <el-table-column class-name="status-col" label="Status" width="110" align="center">
-        <template slot-scope="scope">
-          <el-tag :type="scope.row.status | statusFilter">{{ scope.row.status }}</el-tag>
-        </template>
-      </el-table-column>
-      <el-table-column align="center" prop="created_at" label="Display_time" width="200">
-        <template slot-scope="scope">
-          <i class="el-icon-time" />
-          <span>{{ scope.row.display_time }}</span>
-        </template>
-      </el-table-column>
-    </el-table>
+  <div class="tree">
+    <chart :option="treeOption" height="400px" style="float:left;width:60%" />
   </div>
 </template>
-
 <script>
-import { getList } from '@/api/table'
-
-export default {
-  filters: {
-    statusFilter(status) {
-      const statusMap = {
-        published: 'success',
-        draft: 'gray',
-        deleted: 'danger'
+  import chart from '@/components/chart/index.vue'
+  export default {
+    name: 'tree',
+    components: {
+      chart
+    },
+    data() {
+      return {
+        treeOption: {
+          tooltip: {
+            trigger: 'item',
+            triggerOn: 'mousemove'
+          },
+          legend: {
+            top: 0,
+            left: 0,
+            orient: 'vertical',
+            data: [{
+                name: 'tree1',
+                icon: 'rectangle'
+              },
+              {
+                name: 'tree2',
+                icon: 'rectangle'
+              }
+            ],
+            borderColor: '#c23531'
+          },
+          series: {
+            //edgeShape: 'polyline',直线
+            lineStyle: {// 线宽度
+                width: 1
+            },   
+            //layout: 'radial',// 圆圈        
+            type: 'tree',
+            name: 'tree2',
+            data: [],
+            top: '10px',
+            left: '40px',
+            symbolSize: 7, // 圆圈大小
+            label: { // 非叶子节点文字样式（可以通过改变文字的定位，从而改变数的走向）
+              position: 'left',
+              verticalAlign: 'middle',
+              align: 'right' // 右对齐
+            },
+            leaves: { // 叶子节点文字样式
+              label: {
+                position: 'right',
+                verticalAlign: 'middle',
+                align: 'left'
+              }
+            },
+            expandAndCollapse: true,
+            animationDuration: 550,
+            animationDurationUpdate: 750
+          }
+        }
       }
-      return statusMap[status]
-    }
-  },
-  data() {
-    return {
-      list: null,
-      listLoading: true
-    }
-  },
-  created() {
-    this.fetchData()
-  },
-  methods: {
-    fetchData() {
-      this.listLoading = true
-      getList().then(response => {
-        this.list = response.data.items
-        this.listLoading = false
-      })
+    },
+    mounted() {
+      this.getData()
+    },
+    methods: {
+      getData() {
+        var data2 = {
+          "name": "flare",
+          "children": [{
+              "name": "flex",
+              "children": [{
+                "name": "FlareVis",
+                "value": 4116
+              }]
+            },
+            {
+              "name": "scale",
+              "children": [{
+                  "name": "IScaleMap",
+                  "value": 2105
+                },
+                {
+                  "name": "LinearScale",
+                  "value": 1316
+                },
+                {
+                  "name": "LogScale",
+                  "value": 3151
+                },
+                {
+                  "name": "OrdinalScale",
+                  "value": 3770
+                },
+                {
+                  "name": "QuantileScale",
+                  "value": 2435
+                },
+                {
+                  "name": "QuantitativeScale",
+                  "value": 4839
+                },
+                {
+                  "name": "RootScale",
+                  "value": 1756
+                },
+                {
+                  "name": "Scale",
+                  "value": 4268
+                },
+                {
+                  "name": "ScaleType",
+                  "value": 1821
+                },
+                {
+                  "name": "TimeScale",
+                  "value": 5833
+                }
+              ]
+            },
+            {
+              "name": "display",
+              "children": [{
+                "name": "DirtySprite",
+                "value": 8833
+              }]
+            }
+          ]
+        };
+        this.treeOption.series.data = [data2]
+      }
     }
   }
-}
+
 </script>
+<style lang="scss" scoped>
+  .tree {
+    background: #fff;
+    padding: 16px 5px 0 5px;
+    min-height: 800px;
+  }
+
+</style>
