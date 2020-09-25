@@ -1,20 +1,17 @@
-import Vue from 'vue'
-import 'normalize.css/normalize.css' // A modern alternative to CSS resets
-
-import Element from 'element-ui'
-import 'element-ui/lib/theme-chalk/index.css'
-import VueI18n from 'vue-i18n'
-import messages from './language'
-
-import '@/styles/index.scss' // global css
-
+import Vue from 'vue'// Vue全家桶
 import App from './App'
 import store from './store'
 import router from './router'
 
+import 'normalize.css/normalize.css' // 全局CSS
+import '@/styles/index.scss'
+
+import Element from 'element-ui'// 组件库、图标和国际化
+import 'element-ui/lib/theme-chalk/index.css'
+import VueI18n from 'vue-i18n'
+import messages from './language'
 import '@/icons' // icon
 import '@/permission' // permission control
-
 Vue.use(VueI18n)
 const i18n=new VueI18n({
   locale: window.localStorage.getItem('lang')=='zh'?'zh':'en',// 语言标识 
@@ -24,6 +21,9 @@ const i18n=new VueI18n({
 //   i18n: (key, value) => i18n.t(key, value)
 // })
 Vue.use(Element)
+
+import inputFilter from '@/directives/InputFilter.js'// 全局指令
+Vue.directive('inputFilter', inputFilter)
 
 if (process.env.NODE_ENV === 'production') {
   const { mockXHR } = require('../mock')

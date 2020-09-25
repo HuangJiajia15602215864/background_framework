@@ -235,6 +235,26 @@ export const constantRoutes = [{
     ]
   },
   {
+    path: '/basic',
+    component: Layout,
+    redirect: '/basic/input',
+    name: 'basic',
+    meta: {
+      title: '基础组件',
+      icon: 'el-icon-s-help'
+    },
+    children: [{
+        path: 'input',
+        name: 'input',
+        component: () => import('@/views/basic/input'),
+        meta: {
+          title: '输入框',
+          icon: 'earth'
+        }
+      },
+    ]
+  },
+  {
     path: '*',
     redirect: '/404',
     hidden: true
