@@ -1,8 +1,4 @@
-/*
- * Vue Filters
- * @see https://cn.vuejs.org/v2/guide/filters.html
- */
-
+// 全局过滤器
 /**
  * 字符串重复
  * @param {String|Number} value
