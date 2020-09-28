@@ -24,6 +24,8 @@ Vue.use(Element)
 
 import inputFilter from '@/directives/InputFilter.js'// 全局指令
 Vue.directive('inputFilter', inputFilter)
+import filters from './filters'// 全局过滤器
+Object.keys(filters).forEach(key => Vue.filter(key, filters[key]))
 
 if (process.env.NODE_ENV === 'production') {
   const { mockXHR } = require('../mock')

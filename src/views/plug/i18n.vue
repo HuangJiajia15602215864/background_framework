@@ -1,6 +1,7 @@
 <template>
   <div class="i18n">
     {{$t('message.el.colorpicker.confirm')}}
+    <p>{{ '15602215864' | formatPhone }}</p>
   </div>
 </template>
 

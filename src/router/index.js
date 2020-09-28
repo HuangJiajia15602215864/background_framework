@@ -87,6 +87,73 @@ export const constantRoutes = [{
     ]
   },
   {
+    path: '/basic',
+    component: Layout,
+    redirect: '/basic/input',
+    name: 'basic',
+    meta: {
+      title: '基础组件',
+      icon: 'el-icon-s-help'
+    },
+    children: [{
+        path: 'input',
+        name: 'input',
+        component: () => import('@/views/basic/input'),
+        meta: {
+          title: '输入框',
+          icon: 'earth'
+        }
+      },{
+        path: 'ring',
+        name: 'ring',
+        component: () => import('@/views/basic/ring'),
+        meta: {
+          title: '圆环',
+          icon: 'earth'
+        }
+      },
+    ]
+  },
+  {
+    path: '/plug',
+    component: Layout,
+    redirect: '/plug/i18n',
+    name: 'Plug',
+    meta: {
+      title: '插件',
+      icon: 'el-icon-s-help'
+    },
+    children: [{
+        path: 'i18n',
+        name: 'I18n',
+        component: () => import('@/views/plug/i18n'),
+        meta: {
+          title: '国际化',
+          icon: 'earth'
+        }
+      },
+      {
+        path: 'drag',
+        name: 'drag',
+        component: () => import('@/views/plug/drag'),
+        meta: {
+          title: '拖拽',
+          icon: 'drag'
+        }
+      },
+      {
+        path: 'count',
+        name: 'count',
+        component: () => import('@/views/plug/count'),
+        meta: {
+          title: '数字滚动',
+          icon: 'count'
+        }
+      }
+    ]
+  },
+
+  {
     path: '/chart',
     component: Layout,
     redirect: '/chart/line',
@@ -192,64 +259,6 @@ export const constantRoutes = [{
         meta: {
           title: '日历坐标系',
           icon: 'calendar'
-        }
-      },
-    ]
-  },
-  {
-    path: '/plug',
-    component: Layout,
-    redirect: '/plug/i18n',
-    name: 'Plug',
-    meta: {
-      title: '插件',
-      icon: 'el-icon-s-help'
-    },
-    children: [{
-        path: 'i18n',
-        name: 'I18n',
-        component: () => import('@/views/plug/i18n'),
-        meta: {
-          title: '国际化',
-          icon: 'earth'
-        }
-      },
-      {
-        path: 'drag',
-        name: 'drag',
-        component: () => import('@/views/plug/drag'),
-        meta: {
-          title: '拖拽',
-          icon: 'drag'
-        }
-      },
-      {
-        path: 'count',
-        name: 'count',
-        component: () => import('@/views/plug/count'),
-        meta: {
-          title: '数字滚动',
-          icon: 'count'
-        }
-      }
-    ]
-  },
-  {
-    path: '/basic',
-    component: Layout,
-    redirect: '/basic/input',
-    name: 'basic',
-    meta: {
-      title: '基础组件',
-      icon: 'el-icon-s-help'
-    },
-    children: [{
-        path: 'input',
-        name: 'input',
-        component: () => import('@/views/basic/input'),
-        meta: {
-          title: '输入框',
-          icon: 'earth'
         }
       },
     ]
