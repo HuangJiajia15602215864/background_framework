@@ -1,3 +1,4 @@
+// vue环境下配置jest的配置文件
 module.exports = {
   moduleFileExtensions: ['js', 'jsx', 'json', 'vue'],
   transform: {

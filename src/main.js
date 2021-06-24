@@ -12,14 +12,12 @@ import VueI18n from 'vue-i18n'
 import messages from './language'
 import '@/icons' // icon
 import '@/permission' // permission control
+import '@/styles/element-variables.scss'
 Vue.use(VueI18n)
 const i18n=new VueI18n({
   locale: window.localStorage.getItem('lang')=='zh'?'zh':'en',// 语言标识 
   messages
 })
-// Vue.use(Element, {
-//   i18n: (key, value) => i18n.t(key, value)
-// })
 Vue.use(Element)
 
 import inputFilter from '@/directives/InputFilter.js'// 全局指令

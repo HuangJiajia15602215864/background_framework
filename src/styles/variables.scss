@@ -12,31 +12,25 @@ $subMenuHover:#001528;
 $sideBarWidth: 210px;
 
 // 方案2
-// $menuActiveText:#e3bd77;
+$menuActiveText:#b76c2e;
 
-// $menuBg:#566D97;
-// $menuHover:#12213d;
+$menuBg:#006666;
+$menuHover:#2db3b3;
 
-// $subMenuBg:#36445E;
-// $subMenuHover:#12213d;
+$subMenuBg:#004242;
+$subMenuHover:#2db3b3;
 
 // 方案3
-// $menuActiveText:#997f2d;
+$menuText:#bfcbd9;
+$menuActiveText:#409EFF;
+$menuActiveBorder:#3873D7;
+$subMenuActiveText:#fff; 
 
-// $menuBg:#515070;
-// $menuHover:#6c6aa4;
+$menuBg:#23345E;
+$menuHover:#284179;
 
-// $subMenuBg:#1c1a49;
-// $subMenuHover:#6c6aa4;
-
-// 方案4
-// $menuActiveText:#b76c2e;
-
-// $menuBg:#006666;
-// $menuHover:#2db3b3;
-
-// $subMenuBg:#004242;
-// $subMenuHover:#2db3b3;
+$subMenuBg:#0b1a3d;
+$subMenuHover:#284179;
 
 :export {
   menuText: $menuText;

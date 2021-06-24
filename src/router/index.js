@@ -1,6 +1,5 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-
 Vue.use(Router)
 import Layout from '@/layout'
 
@@ -107,6 +106,14 @@ export const constantRoutes = [{
         path: 'ring',
         name: 'ring',
         component: () => import('@/views/basic/ring'),
+        meta: {
+          title: '圆环',
+          icon: 'earth'
+        }
+      },{
+        path: 'generate',
+        name: 'generate',
+        component: () => import('@/views/basic/generate'),
         meta: {
           title: '圆环',
           icon: 'earth'

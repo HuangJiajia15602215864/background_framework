@@ -7,6 +7,7 @@
     <p>{{'15602215864'|secretPhone}}</p>
     <p>{{new Date()|formatDate}}</p>
     <p>{{3|change(list,'pid','qq')}}</p>
+    <p>{{num | thousands}}</p>
   </div>
 </template>
 
@@ -25,6 +26,11 @@
           pid: 3,
           qq: '佳。'
         },]
+      }
+    },
+    computed:{
+      num(){
+        return (31241234.34356).toFixed(2)
       }
     }
   }
