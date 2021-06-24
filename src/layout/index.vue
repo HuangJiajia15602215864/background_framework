@@ -6,7 +6,7 @@
     <!-- 右边 -->
     <div class="main-container">
       <!-- 顶部导航栏 -->
-      <div :class="{'fixed-header':fixedHeader}">
+      <div class="fixed-header">
         <navbar />
       </div>
       <!-- 下方内容区 -->
@@ -33,9 +33,6 @@ export default {
     },
     device() {
       return this.$store.state.app.device
-    },
-    fixedHeader() {
-      return this.$store.state.settings.fixedHeader
     },
     classObj() {
       return {

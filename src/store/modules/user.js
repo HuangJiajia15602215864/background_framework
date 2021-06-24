@@ -74,7 +74,7 @@ const actions = {
     })
   },
 
-  // user logout
+  // 退出登录
   logout({ commit, state }) {
     return new Promise((resolve, reject) => {
       logout(state.token).then(() => {
@@ -88,10 +88,10 @@ const actions = {
     })
   },
 
-  // remove token
+  // 清除状态
   resetToken({ commit }) {
     return new Promise(resolve => {
-      removeToken() // must remove  token  first
+      removeToken() 
       commit('RESET_STATE')
       resolve()
     })

@@ -2,7 +2,7 @@
   <div class="login-container">
     <el-form ref="loginForm" :model="loginForm" :rules="loginRules" class="login-form" auto-complete="on" label-position="left">
       <div class="title-container">
-        <h3 class="title">后台管理系统——登录</h3>
+        <h3 class="title">{{title}}——登录</h3>
       </div>
 
       <el-form-item prop="username">
@@ -47,12 +47,13 @@
   </div>
 </template>
 <script>
-import { validUsername } from '@/utils/validate'
+import { isValidNumAndLetter } from '@/utils/validate'
+import { title } from '@/settings.js'
 export default {
   name: 'Login',
   data() {
     const validateUsername = (rule, value, callback) => {
-      if (!validUsername(value)) {
+      if (!isValidNumAndLetter(value)) {
         callback(new Error('请填写正确的用户名！'))
       } else {
         callback()
@@ -66,6 +67,7 @@ export default {
       }
     }
     return {
+      title: title,// 系统标题
       loginForm: {// 表单
         username: '',
         password: ''

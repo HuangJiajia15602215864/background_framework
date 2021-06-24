@@ -1,6 +1,4 @@
-/**
- * Created by PanJiaChen on 16/11/18.
- */
+// 公共函数
 
 /**
  * Parse the time to string

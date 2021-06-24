@@ -6,7 +6,7 @@ function resolve(dir) {
   return path.join(__dirname, dir)
 }
 
-const name = defaultSettings.title || '后台管理系统' // 管理系统名称
+const name = defaultSettings.title // 管理系统名称
 const port = process.env.port || process.env.npm_config_port || 9528 // 开发端口
 
 module.exports = {

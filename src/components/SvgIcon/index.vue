@@ -1,11 +1,9 @@
 <template>
-  <div v-if="isExternal" :style="styleExternalIcon" class="svg-external-icon svg-icon" v-on="$listeners" />
-  <svg v-else :class="svgClass" aria-hidden="true" v-on="$listeners">
+  <svg :class="svgClass" aria-hidden="true" v-on="$listeners">
     <use :xlink:href="iconName" />
   </svg>
 </template>
 <script>
-import { isExternal } from '@/utils/validate'
 export default {
   name: 'SvgIcon',
   props: {
@@ -34,9 +32,6 @@ export default {
         mask: `url(${this.iconClass}) no-repeat 50% 50%`,
         '-webkit-mask': `url(${this.iconClass}) no-repeat 50% 50%`
       }
-    },
-    isExternal() {
-      return isExternal(this.iconClass)
     },
   }
 }

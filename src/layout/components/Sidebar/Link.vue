@@ -5,8 +5,6 @@
 </template>
 
 <script>
-import { isExternal } from '@/utils/validate'
-
 export default {
   props: {
     to: {
@@ -15,25 +13,12 @@ export default {
     }
   },
   computed: {
-    isExternal() {
-      return isExternal(this.to)
-    },
     type() {
-      if (this.isExternal) {
-        return 'a'
-      }
       return 'router-link'
     }
   },
   methods: {
     linkProps(to) {
-      if (this.isExternal) {
-        return {
-          href: to,
-          target: '_blank',
-          rel: 'noopener'
-        }
-      }
       return {
         to: to
       }

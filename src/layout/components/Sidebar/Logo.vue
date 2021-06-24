@@ -14,6 +14,7 @@
 </template>
 
 <script>
+import { title } from '@/settings.js'
 export default {
   name: 'SidebarLogo',
   props: {
@@ -24,7 +25,7 @@ export default {
   },
   data() {
     return {
-      title: '后台管理系统',
+      title: title,
     }
   }
 }

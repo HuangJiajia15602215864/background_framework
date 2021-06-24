@@ -10,8 +10,8 @@ import Element from 'element-ui'// 组件库、图标和国际化
 import 'element-ui/lib/theme-chalk/index.css'
 import VueI18n from 'vue-i18n'
 import messages from './language'
-import '@/icons' // icon
-import '@/permission' // permission control
+import '@/icons' // 图表
+import '@/permission' // 权限控制
 import '@/styles/element-variables.scss'
 Vue.use(VueI18n)
 const i18n=new VueI18n({
