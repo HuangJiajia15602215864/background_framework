@@ -5,7 +5,7 @@ import Layout from '@/layout'
 
 export const constantRoutes = [{
     path: '/login',
-    component: () => import('@/views/user/login'),
+    component: () => import('@/views/user/login4'),
     hidden: true
   },
   {
