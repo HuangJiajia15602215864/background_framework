@@ -1,7 +1,9 @@
 <template>
 	<div class="table">
-		<Table :columns="columns" :tableData="tableData" :listLoading="listLoading" :total="total" :border="tableProp.border"
-		 :selection="tableProp.selection" :rowClass="rowClass"></Table>
+		<Table :columns="columns" :tableData="tableData" :listLoading="listLoading" :total="pagination.total"
+			:border="tableProp.border" :page_num="pagination.page_num" :page_size="pagination.page_size"
+			:selection="tableProp.selection" :rowClass="rowClass" 
+			@selectionChange="selectionChange" @sizeChange="sizeChange" @currentChange="currentChange"></Table>
 	</div>
 </template>
 <script>
@@ -17,13 +19,17 @@
 			return {
 				listLoading: false, // 表格是否加载
 				tableData: [], // 表格数据
-				total: 0, // 表格是否总数
 				tableProp: { // 表格属性
 					border: true, // 表格是否加边框
 					selection: true, // 表格是否支持多选
 				},
+				pagination: {
+					total: 0, // 表格总数
+					page_num: 1,
+					page_size: 10
+				},
 				columns: [{
-						type:'expand',
+						type: 'expand',
 						renderName: 'expand',
 						render: (row, h) => {
 							return h('div', [
@@ -88,29 +94,48 @@
 			// 获取数据列表
 			getList() {
 				this.listLoading = true
-				getList().then(res => {
+				let param = {
+					page_num: this.pagination.page_num,
+					page_size: this.pagination.page_size,
+				}
+				getList(param).then(res => {
 					this.tableData = res.data.items
-					this.total = this.tableData.length
+					this.pagination.total = this.tableData.length
 					this.listLoading = false
 				})
 			},
-      // 行特殊渲染
-      rowClass({
-        row
-      }) {
-        if (row.status == 'deleted') {
-          return 'warning-row'
-        } else {
-          return ''
-        }
-      }
+			selectionChange(val){
+			  let idStr = ''
+			  for(let i=0;i<val.length;i++){
+				idStr += val[i].id + ','
+			  }
+			  idStr = idStr.substring(0,idStr.length-1)
+			},
+			sizeChange(val){
+				this.pagination.page_size = val
+				this.getList()
+			},
+			currentChange(val){
+				this.pagination.page_num = val
+				this.getList()
+			},
+			// 行特殊渲染
+			rowClass({
+				row
+			}) {
+				if (row.status == 'deleted') {
+					return 'warning-row'
+				} else {
+					return ''
+				}
+			}
 		}
 	}
 </script>
 <style lang="scss">
-	.table{
-		.warning-row{
-			 color: #F56C6C;
+	.table {
+		.warning-row {
+			color: #F56C6C;
 		}
 	}
 </style>
