@@ -5,7 +5,7 @@ import Layout from '@/layout'
 
 export const constantRoutes = [{
     path: '/login',
-    component: () => import('@/views/user/login4'),
+    component: () => import('@/views/user/login'),
     hidden: true
   },
   {
@@ -35,6 +35,19 @@ export const constantRoutes = [{
       meta: {
         title: 'Dashboard',
         icon: 'dashboard'
+      }
+    }]
+  },
+  {
+    path: '/common',
+    component: Layout,
+    children: [{
+      path: 'table',
+      name: 'table',
+      component: () => import('@/views/common/table'),
+      meta: {
+        title: 'table',
+        icon: 'table'
       }
     }]
   },
