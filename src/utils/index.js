@@ -114,6 +114,16 @@ export function param2Obj(url) {
   return obj
 }
 
+// 获取时间戳对应的yyyy-MM-dd
+export function handleDate(time) {
+  return time.getFullYear() + "-" + addZero((time.getMonth() + 1)) + "-" + addZero((time.getDate()));
+}
+
+// 不足10补0
+export function addZero(val) {
+  return val < 10 ? '0' + val : val
+}
+
 export function debounce(func, wait, immediate) {
   let timeout, args, context, timestamp, result
 
