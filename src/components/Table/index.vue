@@ -10,6 +10,7 @@
 		</div>
 		<!-- 表格筛选条件 -->
 		<div class="marginTop-5">
+			<slot name="top-form"></slot>
 			<el-button type="primary" icon="el-icon-search" size="small" @click="search">查询</el-button>
 			<el-button icon="el-icon-reset" size="small" @click="reset">重置</el-button>
 		</div>
@@ -34,7 +35,7 @@
 			<el-table-column label="操作" v-if="actionShow || edit || remove">
 				<template slot-scope="scope">
 					<el-button type="text" icon="el-icon-edit" class="edit-button" v-if="edit" @click="handleEdit(scope.row)">
-						编辑</el-button>
+						编辑</el-button>	
 					<slot name="action-button"></slot>
 					<el-button type="text" icon="el-icon-delete" class="remove-button" v-if="remove" @click="handleRemove(scope.row)">删除</el-button>
 				</template>
@@ -125,7 +126,7 @@
 			}
 		},
 		mounted() {
-			this.$emit('getList')
+			//this.$emit('getList')
 		},
 		methods: {
 			//查询
