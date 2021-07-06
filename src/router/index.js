@@ -41,62 +41,20 @@ export const constantRoutes = [{
   {
     path: '/common',
     component: Layout,
+    name: 'Component',
+    meta: {
+      title: '基础功能',
+      icon: 'el-icon-eleme'
+    },
     children: [{
       path: 'table',
       name: 'table',
       component: () => import('@/views/common/table'),
       meta: {
-        title: 'table',
+        title: '表格表单',
         icon: 'table'
       }
     }]
-  },
-  {
-    path: '/component',
-    component: Layout,
-    redirect: '/component/table',
-    name: 'Component',
-    meta: {
-      title: 'element组件',
-      icon: 'el-icon-eleme'
-    },
-    children: [{
-        path: 'table',
-        name: 'Table',
-        component: () => import('@/views/component/table'),
-        meta: {
-          title: '表格',
-          icon: 'table'
-        }
-      },
-      {
-        path: 'form',
-        name: 'Form',
-        component: () => import('@/views/component/form'),
-        meta: {
-          title: '表单',
-          icon: 'form'
-        }
-      },
-      {
-        path: 'datePicker',
-        name: 'datePicker',
-        component: () => import('@/views/component/datePicker'),
-        meta: {
-          title: '日期选择器',
-          icon: 'datePicker'
-        }
-      },
-      {
-        path: 'dragSelect',
-        name: 'dragSelect',
-        component: () => import('@/views/component/dragSelect'),
-        meta: {
-          title: '拖拽选择器',
-          icon: 'dragSelect'
-        }
-      },
-    ]
   },
   {
     path: '/basic',
@@ -108,31 +66,22 @@ export const constantRoutes = [{
       icon: 'el-icon-s-help'
     },
     children: [{
-        path: 'input',
-        name: 'input',
-        component: () => import('@/views/basic/input'),
-        meta: {
-          title: '输入框',
-          icon: 'earth'
-        }
-      },{
-        path: 'ring',
-        name: 'ring',
-        component: () => import('@/views/basic/ring'),
-        meta: {
-          title: '圆环',
-          icon: 'earth'
-        }
-      },{
-        path: 'generate',
-        name: 'generate',
-        component: () => import('@/views/basic/generate'),
-        meta: {
-          title: '圆环',
-          icon: 'earth'
-        }
-      },
-    ]
+      path: 'input',
+      name: 'input',
+      component: () => import('@/views/basic/input'),
+      meta: {
+        title: '全局指令处理输入',
+        icon: 'input'
+      }
+    }, {
+      path: 'ring',
+      name: 'ring',
+      component: () => import('@/views/basic/ring'),
+      meta: {
+        title: '圆环',
+        icon: 'ring'
+      }
+    } ]
   },
   {
     path: '/plug',
@@ -148,7 +97,7 @@ export const constantRoutes = [{
         name: 'I18n',
         component: () => import('@/views/plug/i18n'),
         meta: {
-          title: '国际化',
+          title: '国际化&&filter',
           icon: 'earth'
         }
       },
@@ -157,8 +106,17 @@ export const constantRoutes = [{
         name: 'drag',
         component: () => import('@/views/plug/drag'),
         meta: {
-          title: '拖拽',
+          title: '拖拽排序',
           icon: 'drag'
+        }
+      },
+      {
+        path: 'selectDrag',
+        name: 'selectDrag',
+        component: () => import('@/views/plug/selectDrag'),
+        meta: {
+          title: 'select拖拽排序',
+          icon: 'selectDrag'
         }
       },
       {

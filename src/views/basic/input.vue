@@ -1,5 +1,6 @@
 <template>
   <div class="input">
+    <div>全局指令处理输入 @/src/directives/InputFilter.js</div>
     <input v-input-filter:integerLetter v-model="testValue">
   </div>
 </template>
