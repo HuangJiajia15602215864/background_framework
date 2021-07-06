@@ -4,17 +4,16 @@
       :border="tableProp.border" :selection="tableProp.selection" :tableName="tableProp.tableName" :add="actionProp.add"
       :edit="actionProp.edit" :remove="actionProp.remove" :download="actionProp.download" :rowClass="rowClass"
       :renderHeader="renderHeader" :exportFormat="exportFormat" @getList="getList" @selectionChange="selectionChange"
-      @handleRemove="handleRemove">
+      @handleRemove="handleRemove" :editForm="editForm" :editFormItem="editFormItem" :editFormRules="editFormRules"
+      @handleEdit="handleEdit" @editSure="editSure">
       <span slot="top-button">
         <el-button type="danger" icon="el-icon-delete" size="small" :disabled="batchRemoveDis" @click="batchRemove"
           class="marginLeft-10">批量删除</el-button>
       </span>
       <span slot="top-form">
-        <fill-form :form="selectForm" :formItem="selectFormItem" labelPosition="left" labelWidth="60px">
+        <fill-form :form="selectForm" :formItem="selectFormItem" labelPosition="left" labelWidth="60px"
+          @getList="getList" selectButton>
         </fill-form>
-      </span>
-      <span slot="action-button">
-        <el-button type="text" icon="el-icon-edit" class="edit-button">编辑</el-button>
       </span>
     </Table>
   </div>
@@ -52,7 +51,7 @@
         },
         actionProp: { // 操作按钮属性（是否显示）
           add: true,
-          edit: false,
+          edit: true,
           remove: true,
           download: true
         },
@@ -108,18 +107,21 @@
         }],
 
         // selectForm
-
         selectForm: {
           name: '',
           password: '',
-          link: '',
+          /*link: '',
           radioType: '',
           checkboxType: [],
           num: 1,
           select: '',
           switch: true,
           dayPicker: parseTime(new Date(new Date().setDate(new Date().getDate() + 5)), '{y}-{m}-{d}'),
+          dayTimkePicker: '',
+          dayTimkePicker1: '',
           daysPicker: '',
+          timePicker: '',
+          timePicker1: '',*/
         },
         selectFormItem: [{
             label: '姓名',
@@ -132,7 +134,8 @@
             prop: 'password',
             type: 'input',
             showPassword: true
-          }, {
+          },
+          /*{
             label: '链接',
             prop: 'link',
             type: 'input',
@@ -169,13 +172,13 @@
             min: 1,
             max: 5
           },
-          // {
-          //   label: '选择器',
-          //   prop: 'select',
-          //   type: 'select',
-          //   placeholder: '123',
-          //   selectList: checkboxList,
-          // }, 
+          {
+            label: '选择器',
+            prop: 'select',
+            type: 'select',
+            placeholder: '123',
+            selectList: checkboxList,
+          }, 
           {
             label: '开关',
             prop: 'switch',
@@ -195,6 +198,15 @@
               }
             },
             change: () => {}
+          }, {
+            label: '日期时间选择器',
+            prop: 'dayTimkePicker',
+            type: 'dateTimerPicker',
+          }, {
+            label: '日期时间范围选择器',
+            prop: 'dayTimkePicker1',
+            type: 'dateTimerPicker',
+            dateType: 'datetimerange',
           },
           {
             label: '日期范围选择器',
@@ -240,8 +252,63 @@
               }
             }
           },
+          {
+            label: '时间选择器',
+            prop: 'timePicker',
+            type: 'timePicker',
+            placeholder: '日期选择器',
+          }, {
+            label: '时间范围选择器',
+            prop: 'timePicker2',
+            type: 'timePicker',
+            startPlaceholder: '111',
+            isRange: true
+          },*/
+
         ],
-        minDate: "",// daterange选中的时间较小的一个
+        //minDate: "", // daterange选中的时间较小的一个
+
+        // editForm
+        editForm: {
+          title: '',
+          author: '',
+        },
+        editFormItem: [{
+            label: '标题',
+            prop: 'title',
+            type: 'input',
+            textarea: 'textarea',
+            autosize: {
+              minRows: 2,
+              maxRows: 4
+            },
+            required: true
+          },
+          {
+            label: '作者',
+            prop: 'author',
+            type: 'input',
+          },
+        ],
+        editFormRules: {
+          title: [{
+            required: true,
+            message: '请选择活动区域',
+            trigger: 'change'
+          }],
+          author: [{
+              required: true,
+              message: '请输入活动名称',
+              trigger: 'blur'
+            },
+            {
+              min: 3,
+              max: 5,
+              message: '长度在 3 到 5 个字符',
+              trigger: 'blur'
+            }
+          ],
+        }
       }
     },
     filters: {
@@ -261,11 +328,24 @@
       // 获取数据列表
       getList() {
         this.listLoading = true
+        let param = Object.assign(this.$refs.tableComponent.pagination, this.selectForm)
         getList(this.$refs.tableComponent.pagination).then(res => {
           this.tableData = res.data.items
           this.total = res.data.total
           this.listLoading = false
         })
+      },
+      // 编辑
+      handleEdit(row) {
+        this.editForm = Object.assign({}, row)
+      },
+      // 确定
+      editSure(dialogType) {
+        if (dialogType == 1) {
+          console.log('新增')
+        } else {
+          console.log('编辑')
+        }
       },
       // 删除
       handleRemove(id) {

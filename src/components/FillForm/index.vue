@@ -37,9 +37,29 @@
         <el-date-picker v-if="item.type == 'datePicker'" v-model="form[item.prop]" :type="item.dateType || 'date'"
           :placeholder="item.placeholder" :range-separator="item.rangeSeparator || '至'"
           :start-placeholder="item.startPlaceholder || '开始日期'" :end-placeholder="item.endPlaceholder || '结束日期'"
-          :disabled="item.disabled || false" value-format="yyyy-MM-dd" :picker-options="item.options" @change="item.change">
+          :disabled="item.disabled || false" value-format="yyyy-MM-dd" :picker-options="item.options"
+          @change="item.change">
+        </el-date-picker>
+
+        <el-time-picker v-if="item.type == 'timePicker'" v-model="form[item.prop]"
+          :placeholder="item.placeholder||'选择时间'" :is-range="item.isRange||false"
+          :range-separator="item.rangeSeparator || '至'" :start-placeholder="item.startPlaceholder || '开始时间'"
+          :end-placeholder="item.endPlaceholder || '结束时间'" :disabled="item.disabled || false">
+        </el-time-picker>
+
+        <el-date-picker v-if="item.type == 'dateTimerPicker'" v-model="form[item.prop]"
+          :type="item.dateType || 'datetime'" :placeholder="item.placeholder"
+          :range-separator="item.rangeSeparator || '至'" :start-placeholder="item.startPlaceholder || '开始日期'"
+          :end-placeholder="item.endPlaceholder || '结束日期'" :disabled="item.disabled || false"
+          value-format="yyyy-MM-dd HH:mm:ss" :picker-options="item.options">
         </el-date-picker>
       </el-form-item>
+      <!-- 自定义内容--插槽 -->
+      <slot></slot>
+      <span v-if="selectButton">
+        <el-button type="primary" icon="el-icon-search" size="small" @click="search">查询</el-button>
+        <el-button icon="el-icon-refresh-left" size="small" @click="reset">重置</el-button>
+      </span>
     </el-form>
   </div>
 </template>
@@ -75,14 +95,24 @@
         type: Array,
         default: () => []
       },
-    },
-    mounted() {
-
+      selectButton: {
+        type: Boolean,
+        default: () => false
+      },
     },
     methods: {
-      clear(){
-        console.log(1112)
-      }
+      //查询
+      search() {
+        this.$emit('getList')
+      },
+      //重置
+      reset() {
+        this.$refs['fillForm'].resetFields()
+      },
+      //表单验证
+      validate() {
+        return this.$refs['fillForm'].validate()
+      },
     }
   }
 </script>

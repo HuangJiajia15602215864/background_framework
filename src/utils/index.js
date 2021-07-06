@@ -40,11 +40,7 @@ export function parseTime(time, cFormat) {
   return time_str
 }
 
-/**
- * @param {number} time
- * @param {string} option
- * @returns {string}
- */
+// 获取对应时间的时间展示格式、和当前时间差
 export function formatTime(time, option) {
   if (('' + time).length === 10) {
     time = parseInt(time) * 1000
@@ -83,28 +79,6 @@ export function formatTime(time, option) {
   }
 }
 
-/**
- * @param {string} url
- * @returns {Object}
- */
-export function param2Obj(url) {
-  const search = decodeURIComponent(url.split('?')[1]).replace(/\+/g, ' ')
-  if (!search) {
-    return {}
-  }
-  const obj = {}
-  const searchArr = search.split('&')
-  searchArr.forEach(v => {
-    const index = v.indexOf('=')
-    if (index !== -1) {
-      const name = v.substring(0, index)
-      const val = v.substring(index + 1, v.length)
-      obj[name] = val
-    }
-  })
-  return obj
-}
-
 // 获取时间戳对应的yyyy-MM-dd
 export function handleDate(time) {
   return time.getFullYear() + "-" + addZero((time.getMonth() + 1)) + "-" + addZero((time.getDate()));
@@ -115,6 +89,7 @@ export function addZero(val) {
   return val < 10 ? '0' + val : val
 }
 
+// 防抖
 export function debounce(func, wait, immediate) {
   let timeout, args, context, timestamp, result
 

@@ -20,6 +20,15 @@
   left: 0;
   position: relative;
   margin: 0 auto;
+
+  .el-dialog__header{
+    background-color: $colorPrimary;
+    text-align: center;
+  }
+
+  .el-dialog__title,.el-dialog__close{
+    color: #fff!important;
+  }
 }
 
 .upload-container {
@@ -48,8 +57,8 @@
 }
 
 .el-table{
-	margin-bottom: 10px;
-	margin-top:5px;
+	margin-bottom: 5px;
+  margin-top: -13px;
 }
 
 .edit-button{
