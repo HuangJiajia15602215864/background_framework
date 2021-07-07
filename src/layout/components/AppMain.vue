@@ -29,6 +29,15 @@ export default {
 .fixed-header+.app-main {
   padding-top: 70px;
 }
+.hasTagsView {
+  .app-main {
+    min-height: calc(100vh - 84px);
+  }
+
+  .fixed-header+.app-main {
+    padding-top: 84px;
+  }
+}
 </style>
 
 <style lang="scss">

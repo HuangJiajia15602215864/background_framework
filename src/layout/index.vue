@@ -4,19 +4,20 @@
     <!-- 左边-侧边栏 -->
     <sidebar class="sidebar-container" />
     <!-- 右边 -->
-    <div class="main-container">
+    <div :class="['main-container','hasTagsView']">
       <!-- 顶部导航栏 -->
       <div class="fixed-header">
         <navbar />
+				<tags-view />
       </div>
-      <!-- 下方内容区 -->
+      <!-- 下方内容区 -->  
       <app-main />
     </div>
   </div>
 </template>
 
 <script>
-import { Navbar, Sidebar, AppMain } from './components'
+import { Navbar, Sidebar, AppMain,TagsView } from './components'
 import ResizeMixin from './mixin/ResizeHandler'
 
 export default {
@@ -24,7 +25,8 @@ export default {
   components: {
     Navbar,
     Sidebar,
-    AppMain
+    AppMain,
+		TagsView
   },
   mixins: [ResizeMixin],
   computed: {
