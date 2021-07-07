@@ -1,8 +1,8 @@
 <template>
   <draggable v-model="colors" @update="datadragEnd" :options="{animation:500}">
     <transition-group>
-      <div v-for="element in colors" :key="element.text" class="drag-item">
-        {{element.text}}
+      <div v-for="(element,index) in colors" :key="element.text" class="drag-item">
+        {{index}}-{{element.text}}
       </div>
     </transition-group>
   </draggable>
@@ -76,5 +76,6 @@
     background: #ddd;
     margin-top: 20px;
     text-align: center;
+    cursor:move;
   }
 </style>

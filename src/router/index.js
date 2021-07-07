@@ -41,7 +41,7 @@ export const constantRoutes = [{
   {
     path: '/common',
     component: Layout,
-    name: 'Component',
+    name: 'common',
     meta: {
       title: '基础功能',
       icon: 'el-icon-eleme'
@@ -54,40 +54,58 @@ export const constantRoutes = [{
         title: '表格表单',
         icon: 'table'
       }
+    },{
+      path: 'upload',
+      name: 'upload',
+      component: () => import('@/views/common/upload'),
+      meta: {
+        title: '上传文件、图片',
+        icon: 'upload'
+      }
     }]
   },
   {
-    path: '/basic',
+    path: '/component',
     component: Layout,
-    redirect: '/basic/input',
-    name: 'basic',
+    redirect: '/component/ring',
+    name: 'component',
     meta: {
-      title: '基础组件',
+      title: '组件',
       icon: 'el-icon-s-help'
     },
     children: [{
-      path: 'input',
-      name: 'input',
-      component: () => import('@/views/basic/input'),
-      meta: {
-        title: '全局指令处理输入',
-        icon: 'input'
+        path: 'ring',
+        name: 'ring',
+        component: () => import('@/views/component/ring'),
+        meta: {
+          title: '圆环',
+          icon: 'ring'
+        }
+      }, {
+        path: 'selectDrag',
+        name: 'selectDrag',
+        component: () => import('@/views/component/selectDrag'),
+        meta: {
+          title: 'select拖拽排序',
+          icon: 'selectDrag'
+        }
+      },
+      {
+        path: 'count',
+        name: 'count',
+        component: () => import('@/views/component/count'),
+        meta: {
+          title: '数字滚动',
+          icon: 'count'
+        }
       }
-    }, {
-      path: 'ring',
-      name: 'ring',
-      component: () => import('@/views/basic/ring'),
-      meta: {
-        title: '圆环',
-        icon: 'ring'
-      }
-    } ]
+    ]
   },
   {
     path: '/plug',
     component: Layout,
     redirect: '/plug/i18n',
-    name: 'Plug',
+    name: 'plug',
     meta: {
       title: '插件',
       icon: 'el-icon-s-help'
@@ -97,7 +115,7 @@ export const constantRoutes = [{
         name: 'I18n',
         component: () => import('@/views/plug/i18n'),
         meta: {
-          title: '国际化&&filter',
+          title: '国际化',
           icon: 'earth'
         }
       },
@@ -110,27 +128,36 @@ export const constantRoutes = [{
           icon: 'drag'
         }
       },
-      {
-        path: 'selectDrag',
-        name: 'selectDrag',
-        component: () => import('@/views/plug/selectDrag'),
-        meta: {
-          title: 'select拖拽排序',
-          icon: 'selectDrag'
-        }
-      },
-      {
-        path: 'count',
-        name: 'count',
-        component: () => import('@/views/plug/count'),
-        meta: {
-          title: '数字滚动',
-          icon: 'count'
-        }
-      }
     ]
   },
-
+  {
+    path: '/globalMethod',
+    component: Layout,
+    redirect: '/globalMethod/i18n',
+    name: 'globalMethod',
+    meta: {
+      title: '全局方法',
+      icon: 'el-icon-s-help'
+    },
+    children: [{
+        path: 'input',
+        name: 'input',
+        component: () => import('@/views/globalMethod/input'),
+        meta: {
+          title: '全局指令处理输入',
+          icon: 'input'
+        }
+      }, {
+        path: 'filter',
+        name: 'filter',
+        component: () => import('@/views/globalMethod/filter'),
+        meta: {
+          title: 'filter',
+          icon: 'filter'
+        }
+      },
+    ]
+  },
   {
     path: '/chart',
     component: Layout,

@@ -1,13 +1,9 @@
 <template>
   <div class="i18n">
-    {{$t('message.el.colorpicker.confirm')}}
-    <p>{{ '15602215864' | formatPhone }}</p>
-    <p>{{'*'|repeat(3)}}</p>
-    <p>{{'starta'|replace('a','**')}}</p>
-    <p>{{'15602215864'|secretPhone}}</p>
-    <p>{{new Date()|formatDate}}</p>
-    <p>{{3|change(list,'pid','qq')}}</p>
-    <p>{{num | thousands}}</p>
+    {{$t('el.colorpicker.confirm')}}
+    {{$t('login')}}
+    <el-date-picker v-model="value1" type="datetime" placeholder="选择日期时间">
+    </el-date-picker>
   </div>
 </template>
 
@@ -19,22 +15,22 @@
         list: [{
           pid: 1,
           qq: '可可'
-        },{
+        }, {
           pid: 2,
           qq: '佳儿'
-        },{
+        }, {
           pid: 3,
           qq: '佳。'
-        },]
+        }],
+         value1: '',
       }
     },
-    computed:{
-      num(){
+    computed: {
+      num() {
         return (31241234.34356).toFixed(2)
       }
     }
   }
-
 </script>
 
 <style lang="scss" scoped>
