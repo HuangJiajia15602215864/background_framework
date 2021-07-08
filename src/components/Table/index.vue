@@ -154,7 +154,7 @@
       }
     },
     mounted() {
-      //this.$emit('getList')
+      this.$emit('getList')
     },
     methods: {
       // 多选变化

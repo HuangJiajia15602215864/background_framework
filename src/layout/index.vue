@@ -4,11 +4,11 @@
     <!-- 左边-侧边栏 -->
     <sidebar class="sidebar-container" />
     <!-- 右边 -->
-    <div :class="['main-container','hasTagsView']">
+    <div :class="{hasTagsView:needTagsView}" class="main-container">
       <!-- 顶部导航栏 -->
       <div class="fixed-header">
         <navbar />
-				<tags-view />
+				<tags-view v-if="needTagsView"/>
       </div>
       <!-- 下方内容区 -->  
       <app-main />
@@ -19,6 +19,7 @@
 <script>
 import { Navbar, Sidebar, AppMain,TagsView } from './components'
 import ResizeMixin from './mixin/ResizeHandler'
+import { tagView } from '@/settings.js'
 
 export default {
   name: 'Layout',
@@ -35,6 +36,9 @@ export default {
     },
     device() {
       return this.$store.state.app.device
+    },
+    needTagsView(){
+      return tagView
     },
     classObj() {
       return {

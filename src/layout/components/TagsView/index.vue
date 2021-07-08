@@ -1,6 +1,6 @@
 <template>
   <div id="tags-view-container" class="tags-view-container">
-    <scroll-pane ref="scrollPane" class="tags-view-wrapper" @scroll="handleScroll">
+    <scroll-pane ref="scrollPane" class="tags-view-wrapper" @scroll="handleScroll" style="border:1px solid red">
       <router-link
         v-for="tag in visitedViews"
         ref="tag"
@@ -33,23 +33,23 @@ export default {
   components: { ScrollPane },
   data() {
     return {
-      visible: false,
-      top: 0,
+      visible: false,// 菜单是否展示
+      top: 0,// 菜单展示位置
       left: 0,
-      selectedTag: {},
-      affixTags: []
+      selectedTag: {},// 选中的标签
+      affixTags: []// 固定展示的标签
     }
   },
   computed: {
-    visitedViews() {
+    visitedViews() {// // 访问过的标签
       return this.$store.state.tagsView.visitedViews
     },
-    routes() {
-      return this.$store.state.permission.routes
+    routes() {// 路由表
+      return this.$router.options.routes
     }
   },
   watch: {
-    $route() {
+    $route() {// 当访问新页面时
       this.addTags()
       this.moveToCurrentTag()
     },
@@ -66,16 +66,19 @@ export default {
     this.addTags()
   },
   methods: {
+    // 判断当前标签是否正在访问
     isActive(route) {
       return route.path === this.$route.path
     },
+    // 判断当前标签是否固定展示
     isAffix(tag) {
       return tag.meta && tag.meta.affix
     },
+    // 过滤affix的路由（固定在标签页中，无法移除）
     filterAffixTags(routes, basePath = '/') {
       let tags = []
       routes.forEach(route => {
-        if (route.meta && route.meta.affix) {
+        if (route.meta && route.meta.affix) {  
           const tagPath = path.resolve(basePath, route.path)
           tags.push({
             fullPath: tagPath,
@@ -93,15 +96,16 @@ export default {
       })
       return tags
     },
+    // 初始化标签(将固定展示的标签添加)
     initTags() {
       const affixTags = this.affixTags = this.filterAffixTags(this.routes)
       for (const tag of affixTags) {
-        // Must have tag name
         if (tag.name) {
           this.$store.dispatch('tagsView/addVisitedView', tag)
         }
       }
     },
+    // 添加当前访问页面的标签
     addTags() {
       const { name } = this.$route
       if (name) {
@@ -109,14 +113,14 @@ export default {
       }
       return false
     },
+    //scroll 移动到标签
     moveToCurrentTag() {
       const tags = this.$refs.tag
       this.$nextTick(() => {
         for (const tag of tags) {
           if (tag.to.path === this.$route.path) {
             this.$refs.scrollPane.moveToTarget(tag)
-            // when query is different then update
-            if (tag.to.fullPath !== this.$route.fullPath) {
+            if (tag.to.fullPath !== this.$route.fullPath) {// 如果query不同则更新展示的标签列表
               this.$store.dispatch('tagsView/updateVisitedView', this.$route)
             }
             break
@@ -124,6 +128,7 @@ export default {
         }
       })
     },
+    // 更新选中页面
     refreshSelectedTag(view) {
       this.$store.dispatch('tagsView/delCachedView', view).then(() => {
         const { fullPath } = view
@@ -134,6 +139,7 @@ export default {
         })
       })
     },
+    // 关闭选中页面
     closeSelectedTag(view) {
       this.$store.dispatch('tagsView/delView', view).then(({ visitedViews }) => {
         if (this.isActive(view)) {
@@ -141,12 +147,14 @@ export default {
         }
       })
     },
+    // 关闭除选中外的页面
     closeOthersTags() {
       this.$router.push(this.selectedTag)
       this.$store.dispatch('tagsView/delOthersViews', this.selectedTag).then(() => {
         this.moveToCurrentTag()
       })
     },
+    // 关闭所有页面
     closeAllTags(view) {
       this.$store.dispatch('tagsView/delAllViews').then(({ visitedViews }) => {
         if (this.affixTags.some(tag => tag.path === view.path)) {
@@ -155,26 +163,26 @@ export default {
         this.toLastView(visitedViews, view)
       })
     },
+    // 当关闭标签后，打开前一个标签
     toLastView(visitedViews, view) {
       const latestView = visitedViews.slice(-1)[0]
       if (latestView) {
         this.$router.push(latestView.fullPath)
-      } else {
-        // now the default is to redirect to the home page if there is no tags-view,
-        // you can adjust it according to your needs.
+      } else {// 如果没有标签视图，默认是重定向到主页
         if (view.name === 'Dashboard') {
-          // to reload home page
           this.$router.replace({ path: '/redirect' + view.fullPath })
         } else {
           this.$router.push('/')
         }
       }
     },
+    // 打开菜单
     openMenu(tag, e) {
-      const menuMinWidth = 105
-      const offsetLeft = this.$el.getBoundingClientRect().left // container margin left
-      const offsetWidth = this.$el.offsetWidth // container width
-      const maxLeft = offsetWidth - menuMinWidth // left boundary
+      console.log(this.$el)
+      const menuMinWidth = 105 // 预估菜单栏的宽度
+      const offsetLeft = this.$el.getBoundingClientRect().left // 元素左边距离页面左边的距离
+      const offsetWidth = this.$el.offsetWidth // 元素宽度
+      const maxLeft = offsetWidth - menuMinWidth // 左边界
       const left = e.clientX - offsetLeft + 15 // 15: margin right
 
       if (left > maxLeft) {
@@ -187,9 +195,11 @@ export default {
       this.visible = true
       this.selectedTag = tag
     },
+    // 关闭菜单
     closeMenu() {
       this.visible = false
     },
+    // 滚动时关闭菜单
     handleScroll() {
       this.closeMenu()
     }
@@ -198,6 +208,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import "~@/styles/element-variables.scss";
 .tags-view-container {
   height: 34px;
   width: 100%;
@@ -225,10 +236,10 @@ export default {
         margin-right: 15px;
       }
       &.active {
-        background-color: #42b983;
+        background-color: $colorPrimary;
         color: #fff;
-        border-color: #42b983;
-        &::before {
+        border-color: $colorPrimary;
+        /* &::before {
           content: '';
           background: #fff;
           display: inline-block;
@@ -237,7 +248,7 @@ export default {
           border-radius: 50%;
           position: relative;
           margin-right: 2px;
-        }
+        } */
       }
     }
   }

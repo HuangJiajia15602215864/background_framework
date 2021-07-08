@@ -5,7 +5,7 @@
 </template>
 
 <script>
-const tagAndTagSpacing = 4 // tagAndTagSpacing
+const tagAndTagSpacing = 4 // 标签之间的间隔
 
 export default {
   name: 'ScrollPane',
@@ -15,6 +15,7 @@ export default {
     }
   },
   computed: {
+    // 获取滚动元素
     scrollWrapper() {
       return this.$refs.scrollContainer.$refs.wrap
     }
@@ -26,14 +27,17 @@ export default {
     this.scrollWrapper.removeEventListener('scroll', this.emitScroll)
   },
   methods: {
+    // 鼠标滚动
     handleScroll(e) {
       const eventDelta = e.wheelDelta || -e.deltaY * 40
       const $scrollWrapper = this.scrollWrapper
       $scrollWrapper.scrollLeft = $scrollWrapper.scrollLeft + eventDelta / 4
     },
+    // 触发scroll事件
     emitScroll() {
       this.$emit('scroll')
     },
+    //scroll 移动到标签
     moveToTarget(currentTag) {
       const $container = this.$refs.scrollContainer.$el
       const $containerWidth = $container.offsetWidth

@@ -4,6 +4,14 @@ Vue.use(Router)
 import Layout from '@/layout'
 
 export const constantRoutes = [{
+    path: '/redirect',
+    component: Layout,
+    hidden: true,
+    children: [{
+      path: '/redirect/:path(.*)',
+      component: () => import('@/views/redirect/index')
+    }]
+  }, {
     path: '/login',
     component: () => import('@/views/user/login'),
     hidden: true
@@ -54,7 +62,7 @@ export const constantRoutes = [{
         title: '表格表单',
         icon: 'table'
       }
-    },{
+    }, {
       path: 'upload',
       name: 'upload',
       component: () => import('@/views/common/upload'),
@@ -140,31 +148,30 @@ export const constantRoutes = [{
       icon: 'el-icon-s-help'
     },
     children: [{
-        path: 'input',
-        name: 'input',
-        component: () => import('@/views/globalMethod/input'),
-        meta: {
-          title: '全局指令处理输入',
-          icon: 'input'
-        }
-      }, {
-        path: 'filter',
-        name: 'filter',
-        component: () => import('@/views/globalMethod/filter'),
-        meta: {
-          title: 'filter',
-          icon: 'filter'
-        }
-      },{
-        path: 'copy',
-        name: 'copy',
-        component: () => import('@/views/globalMethod/copy'),
-        meta: {
-          title: '复制',
-          icon: 'copy'
-        }
-      },
-    ]
+      path: 'input',
+      name: 'input',
+      component: () => import('@/views/globalMethod/input'),
+      meta: {
+        title: '全局指令处理输入',
+        icon: 'input'
+      }
+    }, {
+      path: 'filter',
+      name: 'filter',
+      component: () => import('@/views/globalMethod/filter'),
+      meta: {
+        title: 'filter',
+        icon: 'filter'
+      }
+    }, {
+      path: 'copy',
+      name: 'copy',
+      component: () => import('@/views/globalMethod/copy'),
+      meta: {
+        title: '复制',
+        icon: 'copy'
+      }
+    }, ]
   },
   {
     path: '/chart',
