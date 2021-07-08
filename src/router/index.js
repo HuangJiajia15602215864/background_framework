@@ -155,6 +155,14 @@ export const constantRoutes = [{
           title: 'filter',
           icon: 'filter'
         }
+      },{
+        path: 'copy',
+        name: 'copy',
+        component: () => import('@/views/globalMethod/copy'),
+        meta: {
+          title: '复制',
+          icon: 'copy'
+        }
       },
     ]
   },
