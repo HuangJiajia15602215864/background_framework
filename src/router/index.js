@@ -70,6 +70,14 @@ export const constantRoutes = [{
         title: '上传文件、图片',
         icon: 'upload'
       }
+    },{
+      path: 'exportSelectRow',
+      name: 'exportSelectRow',
+      component: () => import('@/views/common/exportSelectRow'),
+      meta: {
+        title: '表格导出选定行',
+        icon: 'exportSelectRow'
+      }
     }]
   },
   {
@@ -105,6 +113,15 @@ export const constantRoutes = [{
         meta: {
           title: '数字滚动',
           icon: 'count'
+        }
+      },
+      {
+        path: 'backToTop',
+        name: 'backToTop',
+        component: () => import('@/views/component/backToTop'),
+        meta: {
+          title: '回到顶部',
+          icon: 'backToTop'
         }
       }
     ]
