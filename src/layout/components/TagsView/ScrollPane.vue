@@ -85,7 +85,7 @@ export default {
   white-space: nowrap;
   position: relative;
   overflow: hidden;
-  width: 100%;
+  width: calc(100vw - 160px);
   ::v-deep {
     .el-scrollbar__bar {
       bottom: 0px;
