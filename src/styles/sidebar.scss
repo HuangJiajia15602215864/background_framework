@@ -73,6 +73,11 @@
       &:hover {
         background-color: $menuHover !important;
       }
+
+      .el-submenu__icon-arrow{
+        color:$menuText!important;
+        font-weight: 600!important;
+      }
     }
 
     & .nest-menu .el-submenu>.el-submenu__title,
