@@ -32,6 +32,18 @@ $menuHover:#284179;
 $subMenuBg:#0b1a3d;
 $subMenuHover:#284179;
 
+// 方案4
+$menuText:rgba(206,166,123,.7);
+$menuActiveText:#cea67b;
+$menuActiveBorder:#3873D7;
+$subMenuActiveText:#cea67b;
+
+$menuBg:#2a2c30;
+$menuHover:#2a2c30;
+
+$subMenuBg:#1b1d20;
+$subMenuHover:#2a2c30;
+
 :export {
   menuText: $menuText;
   menuActiveText: $menuActiveText;
