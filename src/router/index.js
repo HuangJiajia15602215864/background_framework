@@ -55,6 +55,22 @@ export const constantRoutes = [{
       icon: 'el-icon-eleme'
     },
     children: [{
+      path: 'params/:id',
+      name: 'params',
+      component: () => import('@/views/common/params'),
+      meta: {
+        title: 'params传参',
+        icon: 'table'
+      }
+    },{
+      path: 'query',
+      name: 'query',
+      component: () => import('@/views/common/query'),
+      meta: {
+        title: 'query',
+        icon: 'table'
+      }
+    },{
       path: 'table',
       name: 'table',
       component: () => import('@/views/common/table'),

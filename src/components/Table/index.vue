@@ -7,7 +7,7 @@
       <el-button type="success" icon="el-icon-download" size="small" plain v-if="download" :loading="downloadLoading"
         @click="handleDownload" class="export-buttom">导出表格
       </el-button>
-    </div>
+    </div> 
     <!-- 表格筛选条件 -->
     <div class="marginTop-5">
       <slot name="top-form"></slot>
@@ -20,11 +20,7 @@
         :align="i.align ||'center'" :type="i.type" :column-key="i.tip" show-overflow-tooltip
         :render-header="renderHeader">
         <template slot-scope="scope">
-          <div v-if="i.type == 'renderHtml'">
-            {{ renderToHtml(i, scope.row) }}
-            <slot :name="i.renderName"></slot>
-          </div>
-          <div v-else-if="i.type == 'expand'">
+          <div v-if="i.type == 'renderHtml' || i.type == 'expand'">
             {{ renderToHtml(i, scope.row) }}
             <slot :name="i.renderName"></slot>
           </div>

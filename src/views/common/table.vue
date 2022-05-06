@@ -110,18 +110,18 @@
         selectForm: {
           name: '',
           password: '',
-          /*link: '',
-          radioType: '',
-          checkboxType: [],
-          num: 1,
-          select: '',
-          switch: true,
-          dayPicker: parseTime(new Date(new Date().setDate(new Date().getDate() + 5)), '{y}-{m}-{d}'),
-          dayTimkePicker: '',
-          dayTimkePicker1: '',
-          daysPicker: '',
-          timePicker: '',
-          timePicker1: '',*/
+          // link: '',
+          // radioType: '',
+          // checkboxType: [],
+          // num: 1,
+          // select: '',
+          // switch: true,
+          // dayPicker: parseTime(new Date(new Date().setDate(new Date().getDate() + 5)), '{y}-{m}-{d}'),
+          // dayTimkePicker: '',
+          // dayTimkePicker1: '',
+          // daysPicker: '',
+          // timePicker: '',
+          // timePicker1: '',
         },
         selectFormItem: [{
             label: '姓名',
@@ -135,135 +135,135 @@
             type: 'input',
             showPassword: true
           },
-          /*{
-            label: '链接',
-            prop: 'link',
-            type: 'input',
-            textarea: 'textarea',
-            autosize: {
-              minRows: 2,
-              maxRows: 4
-            }
-          }, {
-            label: '类型',
-            prop: 'radioType',
-            type: 'radio',
-            radioList: [{
-              label: '是',
-              value: 1
-            }, {
-              label: '否',
-              value: 0
-            }]
-          }, {
-            label: '类型多选',
-            prop: 'checkboxType',
-            type: 'checkbox',
-            checkboxList: checkboxList,
-            indeterminate: true,
-            isIM: true,
-            checkAll: false,
-            change: this.checkboxTypeChange,
-            allChange: this.checkboxAllChange
-          }, {
-            label: '人数',
-            prop: 'num',
-            type: 'inputNum',
-            min: 1,
-            max: 5
-          },
-          {
-            label: '选择器',
-            prop: 'select',
-            type: 'select',
-            placeholder: '123',
-            selectList: checkboxList,
-          }, 
-          {
-            label: '开关',
-            prop: 'switch',
-            type: 'switch',
-            activeColor: '#000',
-            inactiveColor: '#ccc',
-            activeText: '开了开了',
-            inactiveText: '关了关了',
-          }, {
-            label: '日期选择器',
-            prop: 'dayPicker',
-            type: 'datePicker',
-            placeholder: '日期选择器',
-            options: {
-              disabledDate: time => {
-                return time.getTime() > Date.now()
-              }
-            },
-            change: () => {}
-          }, {
-            label: '日期时间选择器',
-            prop: 'dayTimkePicker',
-            type: 'dateTimerPicker',
-          }, {
-            label: '日期时间范围选择器',
-            prop: 'dayTimkePicker1',
-            type: 'dateTimerPicker',
-            dateType: 'datetimerange',
-          },
-          {
-            label: '日期范围选择器',
-            prop: 'daysPicker',
-            type: 'datePicker',
-            dateType: 'daterange',
-            rangeSeparator: '~',
-            startPlaceholder: '开始',
-            endPlaceholder: '结束',
-            options: {
-              onPick: ({
-                maxDate,
-                minDate
-              }) => {
-                this.minDate = minDate; //选中的时间较小的一个
-              },
-              disabledDate: (time) => {
-                let curDate = new Date().getTime(); // 当前时间的时间戳
-                let cutTime = 30 * 24 * 3600 * 1000; // 1个月前不可选
-                let minTime = curDate - cutTime; // 最小时间的时间戳
-                let month = 10 * 24 * 3600 * 1000; // 时间跨度不能大于10天
-                let nowLast = new Date(new Date(new Date().getTime()).setHours(23, 59, 59, 999))
-                  .getTime(); // 今天的23点59分59秒
-                if (this.minDate) {
-                  // 判断
-                  // 1.遍历时间大于今天（23:59:59）会返回true
-                  // 2.遍历时间小于最小时间会返回true
-                  // 3.遍历时间大于 选中的时间较小的一个 加上 时间跨度 会返回true
-                  // 4.遍历时间小于 选中的时间较小的一个 减去 时间跨度 会返回true
-                  return (
-                    time.getTime() > nowLast ||
-                    time.getTime() < minTime ||
-                    time > new Date(this.minDate.getTime() + month) ||
-                    time < new Date(this.minDate.getTime() - month)
-                  );
-                }
-                return time.getTime() > Date.now() || time.getTime() < minTime;
-              },
-            },
-            change: (val) => {
-              if (!val) {
-                this.minDate = ''
-              }
-            }
-          },
-          {
-            label: '时间选择器',
-            prop: 'timePicker',
-            type: 'timePicker',
-            placeholder: '日期选择器',
-          }, {
-            label: '时间范围选择器',
-            prop: 'timePicker2',
-            type: 'timePicker',
-            startPlaceholder: '111',
-            isRange: true
-          },*/
+          // {
+          //   label: '链接',
+          //   prop: 'link',
+          //   type: 'input',
+          //   textarea: 'textarea',
+          //   autosize: {
+          //     minRows: 2,
+          //     maxRows: 4
+          //   }
+          // }, {
+          //   label: '类型',
+          //   prop: 'radioType',
+          //   type: 'radio',
+          //   radioList: [{
+          //     label: '是',
+          //     value: 1
+          //   }, {
+          //     label: '否',
+          //     value: 0
+          //   }]
+          // }, {
+          //   label: '类型多选',
+          //   prop: 'checkboxType',
+          //   type: 'checkbox',
+          //   checkboxList: checkboxList,
+          //   indeterminate: true,
+          //   isIM: true,
+          //   checkAll: false,
+          //   change: this.checkboxTypeChange,
+          //   allChange: this.checkboxAllChange
+          // }, {
+          //   label: '人数',
+          //   prop: 'num',
+          //   type: 'inputNum',
+          //   min: 1,
+          //   max: 5
+          // },
+          // {
+          //   label: '选择器',
+          //   prop: 'select',
+          //   type: 'select',
+          //   placeholder: '123',
+          //   selectList: checkboxList,
+          // }, 
+          // {
+          //   label: '开关',
+          //   prop: 'switch',
+          //   type: 'switch',
+          //   activeColor: '#000',
+          //   inactiveColor: '#ccc',
+          //   activeText: '开了开了',
+          //   inactiveText: '关了关了',
+          // }, {
+          //   label: '日期选择器',
+          //   prop: 'dayPicker',
+          //   type: 'datePicker',
+          //   placeholder: '日期选择器',
+          //   options: {
+          //     disabledDate: time => {
+          //       return time.getTime() > Date.now()
+          //     }
+          //   },
+          //   change: () => {}
+          // }, {
+          //   label: '日期时间选择器',
+          //   prop: 'dayTimkePicker',
+          //   type: 'dateTimerPicker',
+          // }, {
+          //   label: '日期时间范围选择器',
+          //   prop: 'dayTimkePicker1',
+          //   type: 'dateTimerPicker',
+          //   dateType: 'datetimerange',
+          // },
+          // {
+          //   label: '日期范围选择器',
+          //   prop: 'daysPicker',
+          //   type: 'datePicker',
+          //   dateType: 'daterange',
+          //   rangeSeparator: '~',
+          //   startPlaceholder: '开始',
+          //   endPlaceholder: '结束',
+          //   options: {
+          //     onPick: ({
+          //       maxDate,
+          //       minDate
+          //     }) => {
+          //       this.minDate = minDate; //选中的时间较小的一个
+          //     },
+          //     disabledDate: (time) => {
+          //       let curDate = new Date().getTime(); // 当前时间的时间戳
+          //       let cutTime = 30 * 24 * 3600 * 1000; // 1个月前不可选
+          //       let minTime = curDate - cutTime; // 最小时间的时间戳
+          //       let month = 10 * 24 * 3600 * 1000; // 时间跨度不能大于10天
+          //       let nowLast = new Date(new Date(new Date().getTime()).setHours(23, 59, 59, 999))
+          //         .getTime(); // 今天的23点59分59秒
+          //       if (this.minDate) {
+          //         // 判断
+          //         // 1.遍历时间大于今天（23:59:59）会返回true
+          //         // 2.遍历时间小于最小时间会返回true
+          //         // 3.遍历时间大于 选中的时间较小的一个 加上 时间跨度 会返回true
+          //         // 4.遍历时间小于 选中的时间较小的一个 减去 时间跨度 会返回true
+          //         return (
+          //           time.getTime() > nowLast ||
+          //           time.getTime() < minTime ||
+          //           time > new Date(this.minDate.getTime() + month) ||
+          //           time < new Date(this.minDate.getTime() - month)
+          //         );
+          //       }
+          //       return time.getTime() > Date.now() || time.getTime() < minTime;
+          //     },
+          //   },
+          //   change: (val) => {
+          //     if (!val) {
+          //       this.minDate = ''
+          //     }
+          //   }
+          // },
+          // {
+          //   label: '时间选择器',
+          //   prop: 'timePicker',
+          //   type: 'timePicker',
+          //   placeholder: '日期选择器',
+          // }, {
+          //   label: '时间范围选择器',
+          //   prop: 'timePicker2',
+          //   type: 'timePicker',
+          //   startPlaceholder: '111',
+          //   isRange: true
+          // },
 
         ],
         //minDate: "", // daterange选中的时间较小的一个

@@ -8,7 +8,7 @@ export default {
     }
   },
   mounted() {
-    this.$_resizeHandler = debounce(() => {
+    this.$_resizeHandler = debounce(() => {// 定义resize函数
       if (this.chart) {
         console.log(2)
         this.chart.resize()

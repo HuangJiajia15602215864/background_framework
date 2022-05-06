@@ -1,5 +1,9 @@
 <template>
   <div class="container-user">
+    <button @click="jump(1)">params的path传参</button>
+    <button @click="jump(2)">params的name传参</button>
+    <button @click="jump(3)">query的path传参</button>
+    <button @click="jump(4)">query的name传参</button>
     <div class="user-box">
       <div class="user-avatar">
         <img :src="user.avatar" class="user-avatar">
@@ -25,7 +29,7 @@
             </div>
           </div>
         </div>
-      </el-card >
+      </el-card>
     </div>
   </div>
 </template>
@@ -98,10 +102,43 @@
         }).then(res => {
           this.user = res.data
         })
+      },
+      jump(type) {
+        let id = 1
+        switch (type) {
+          case 1:
+            this.$router.push({ // 需要路由表配置/:id，刷新不会丢失
+              path: `/common/params/${id}`
+            })
+            break
+          case 2:
+            this.$router.push({ // （可选）路由表配置/:id，配置时刷新不会丢失，没配置时刷新会丢失
+              name: 'params',
+              params: {
+                id: id
+              }
+            })
+            break
+          case 3:
+            this.$router.push({// 刷新不会丢失
+              path: '/common/query',
+              query: {
+                id: id
+              }
+            })
+            break
+          case 4:
+            this.$router.push({// 刷新不会丢失
+              name: 'query',
+              query: {
+                id: id
+              }
+            })
+            break
+        }
       }
     }
   }
-
 </script>
 <style lang="scss" scoped>
   .container-user {
@@ -112,11 +149,11 @@
   .message {
     min-width: 500px;
     margin-top: 10px;
-    background:#fff;
+    background: #fff;
 
-    .title{
-      font-weight:600;
-      font-size:18px!important;
+    .title {
+      font-weight: 600;
+      font-size: 18px !important;
     }
 
     .message-item {
@@ -173,5 +210,4 @@
       color: #409EFF
     }
   }
-
 </style>
